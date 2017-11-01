@@ -1,0 +1,41 @@
+#element_id {
+	/* properties to apply to this id*/
+}
+
+.element_class {
+	/* properties to apply to this class*/
+}
+
+element_type {
+	/* properties to apply to this type*/
+}
+
+.mCalendar {
+	border: solid 5px black;
+	width: auto;
+	height: auto;
+}
+
+.top {
+	border: solid 1px black;
+	background-color: #C0C0C0;
+}
+
+.element {
+	border: solid 1px black;
+	text-align: left;
+	vertical-align: top;
+	background-color: #FFFFFF;
+	padding: 15px;
+	height: auto;
+	width: auto;
+}
+
+.exit {
+	border-left:solid 1px #C0C0C0;
+	background-color: #C0C0C0;
+}
+
+.month {
+	background-color: #C0C0C0;
+}
