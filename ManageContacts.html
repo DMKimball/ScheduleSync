@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Schedule Sync: Share an Event</title> <!-- Page title, TODO: CHANGE THIS -->
+		<title>Schedule Sync: Manage Contacts</title> <!-- Page title, TODO: CHANGE THIS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 		<link href="CreateEvent_Stylesheet.css" rel="stylesheet" /> <!-- CSS link, TODO: CHANGE THIS -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,31 +9,58 @@
 	</head>
 	<body>
 		<div class="container blue-box">
-			<h1>Share Event With:</h1>
+			<h1>Contacts:</h1>
 			<div class="row">
 				<div class="col-2">
 					Contact Name: <br>
-					<input type="text" name="contactname"><br>
+					<input type="text" name="contactname" value="Bill Nye" readonly=true><br>
 				</div>
 				<div class="col-2">
 					Contact Email: <br>
-					<input type="email" name="contactemail"><br>
+					<input type="email" name="contactemail" value="thescienceguy@gmail.com" readonly=true><br>
+				</div>
+				<div class="col-1">
+					<br><a href="EditContact.html"><input type="button" value="Edit"></a>
+				</div>
+				<div class="col-1">
+					<br><input type="button" value="Delete">
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-2">
-					<input type="button" value="Add Contact Field">
+					Contact Name: <br>
+					<input type="text" name="contactname" value="Mr. Rogers" readonly=true><br>
+				</div>
+				<div class="col-2">
+					Contact Email: <br>
+					<input type="email" name="contactemail" value="nicesweaterman@gmail.com" readonly=true><br>
+				</div>
+				<div class="col-1">
+					<br><a href="EditContact.html"><input type="button" value="Edit"></a>
+				</div>
+				<div class="col-1">
+					<br><input type="button" value="Delete">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-2">
+					Contact Name: <br>
+					<input type="text" name="contactname" value="Darth Vader" readonly=true><br>
+				</div>
+				<div class="col-2">
+					Contact Email: <br>
+					<input type="email" name="contactemail" value="darksidehascookies@gmail.com" readonly=true><br>
+				</div>
+				<div class="col-1">
+					<br><a href="EditContact.html"><input type="button" value="Edit"></a>
+				</div>
+				<div class="col-1">
+					<br><input type="button" value="Delete">
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-1">
-					<input type="reset" value="Clear">
-				</div>
-				<div class="col-1">
-					<a href="Template_Document.html"><input type="button" value="Cancel"></a>
-				</div>
-				<div class="col-1">
-					<a href="Template_Document.html"><input type="button" value="Share"></a
+					<a href="CreateContact.html"><input type="button" value="Add Contact"></a>
 				</div>
 			</div>
 
