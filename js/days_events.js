@@ -1,6 +1,28 @@
+var dayValues = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+var monthValues =
+                  [
+                  'January', 'February',
+                  'March', 'April',
+                  'May', 'June',
+                  'July', 'August',
+                  'September', 'October',
+                  'November', 'December',
+                ];
+
+var monthValues_short =
+                  [
+                  'JAN', 'FEB',
+                  'MAR', 'APR',
+                  'MAY', 'JUN',
+                  'JUL', 'AUG',
+                  'SEP', 'OCT',
+                  'NOV', 'DEC',
+                ];
+
 $(document).ready(function() {
   var name = localStorage.getItem('username');
-  //console.log(generateEvents());
+  console.log(name);
+  generateDateButtons();
   generateEvents();
   // Generate events based on sharing
   document.getElementById('day_date').innerHTML = generateDate();
@@ -9,17 +31,8 @@ $(document).ready(function() {
 document.getElementById("today_button").onclick = function() {generateToday()};
 
 function generateDate() {
-  var dayValues = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-  var monthValues =
-                    [
-                    'January', 'February',
-                    'March', 'April',
-                    'May', 'June',
-                    'July', 'August',
-                    'September', 'October',
-                    'November', 'December',
-                    ]
-  var today = new Date();
+  var today = getDateShown_t();
+  //var today = new Date();
   var date = monthValues[today.getMonth()]+' '+today.getDate()+', '+today.getFullYear();
   localStorage.setItem('dateShown', today.getMonth()+' '+today.getDate()+', '+today.getFullYear());
   return dayValues[today.getDay()]+"<br/>"+date;
@@ -49,6 +62,7 @@ function generateEvents() {
         }
       }
       if(gen) {
+
         var startDate = new Date(current[i].start);
         var endDate = new Date(current[i].end);
         var startHour = startDate.getHours();
@@ -56,7 +70,10 @@ function generateEvents() {
         var endHour = endDate.getHours();
         var endMin = endDate.getMinutes();
 
-        if((startDate.getMonth()+' '+startDate.getDate()+', '+startDate.getFullYear())==getDateShown()) {
+        var newD = getDateShown_t();
+        var dStr =  newD.getMonth()+' '+newD.getDate()+', '+newD.getFullYear()
+
+        if((startDate.getMonth()+' '+startDate.getDate()+', '+startDate.getFullYear())==dStr) {
 
         if(startHour >= 13) {
           startTime = (startHour-12).toString()+':';
@@ -111,14 +128,62 @@ function generateEventCard(eventName, eventStart, eventEnd) {
 function getDateShown(){
   return localStorage.getItem('dateShown');
 }
+function getDateShown_t(){
+  return new Date(localStorage.getItem('dateShown_t'));
+}
 
 function generateToday(){
   var today = new Date();
+  localStorage.setItem('dateShown_t', today.toString());
   console.log(today);
-  localStorage.setItem('dateShown', today.getMonth()+' '+today.getDate()+', '+today.getFullYear());
+  location.href = "TodaysEvents.html"
+  //localStorage.setItem('dateShown', today.getMonth()+' '+today.getDate()+', '+today.getFullYear());
 }
 
 function eventClicked(eventName) {
   localStorage.setItem('eventEdit', eventName);
   location.href = "EditEvent.html";
+}
+
+function generateDateButtons(){
+  d = getDateShown_t();
+  console.log(d);
+  document.getElementById('this_day').value = monthValues_short[d.getMonth()]+" "+d.getDate();
+  d.setDate(d.getDate() - 3);
+  console.log(d);
+  document.getElementById('day1').value = monthValues_short[d.getMonth()]+" "+d.getDate();
+  d.setDate(d.getDate() + 1);
+  document.getElementById('day2').value = monthValues_short[d.getMonth()]+" "+d.getDate();
+  d.setDate(d.getDate() + 1);
+  document.getElementById('day3').value = monthValues_short[d.getMonth()]+" "+d.getDate();
+  d.setDate(d.getDate() + 2);
+  document.getElementById('day5').value = monthValues_short[d.getMonth()]+" "+d.getDate();
+  d.setDate(d.getDate() + 1);
+  document.getElementById('day6').value = monthValues_short[d.getMonth()]+" "+d.getDate();
+  d.setDate(d.getDate() + 1);
+  document.getElementById('day7').value = monthValues_short[d.getMonth()]+" "+d.getDate();
+}
+
+function goToDate(id) {
+  d = getDateShown_t();
+  if(id =="day1") {
+    d.setDate(d.getDate() - 3);
+  }
+  else if(id=="day2") {
+    d.setDate(d.getDate() - 2);
+  }
+  else if(id=="day3") {
+    d.setDate(d.getDate() - 1);
+  }
+  else if(id=="day5") {
+    d.setDate(d.getDate() + 1);
+  }
+  else if(id=="day6") {
+    d.setDate(d.getDate() + 2);
+  }
+  else {
+    d.setDate(d.getDate() + 3);
+  }
+  localStorage.setItem('dateShown_t', d.toString());
+  location.href = "TodaysEvents.html";
 }

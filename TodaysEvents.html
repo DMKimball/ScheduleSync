@@ -14,16 +14,16 @@
 			<table border="2px"align="center">
 				<tr><td><a href="Main_Calendar.html"><input id="calendar" type="button" value="Calendar"></input></a></td></tr>
 				<tr> <td>
-					<table border="1px">
+					<table id="day_buttons" border="1px">
 						<tr>
-							<td><a href="TodaysEvents.html"><input class="day" type="button" value="Mth dd"></input></a></td>
-							<td><a href="TodaysEvents.html"><input class="day" type="button" value="Mth dd"></input></a></td>
-							<td><a href="TodaysEvents.html"><input class="day" type="button" value="Mth dd"></input></a></td>
-							<td><a href="TodaysEvents.html"><input class="day" type="button" value="Mth dd"></input></a></td>
-							<td><a href="TodaysEvents.html"><input class="day" type="button" value="Mth dd"></input></a></td>
-							<td><a href="TodaysEvents.html"><input class="day" type="button" value="Mth dd"></input></a></td>
-							<td><a href="TodaysEvents.html"><input class="day" type="button" value="Mth dd"></input></a></td>
-							<td><a href="TodaysEvents.html"><input id="today_button" class="day" type="button" value="Today"></input></a></td>
+							<td><input id="day1" class="day" type="button" value="Mth dd" onclick="goToDate(this.id)"></input></td>
+							<td><input id="day2" class="day" type="button" value="Mth dd" onclick="goToDate(this.id)"></input></td>
+							<td><input id="day3" class="day" type="button" value="Mth dd" onclick="goToDate(this.id)"></input></td>
+							<td><input id="this_day" class="day" type="button" value="Mth dd"></input></td>
+							<td><input id="day5" class="day" type="button" value="Mth dd" onclick="goToDate(this.id)"></input></td>
+							<td><input id="day6" class="day" type="button" value="Mth dd" onclick="goToDate(this.id)"></input></td>
+							<td><input id="day7" class="day" type="button" value="Mth dd" onclick="goToDate(this.id)"></input></td>
+							<td><input id="today_button" class="day" type="button" value="Today" onclick="generateToday()"></input></td>
 						</tr>
 					</table>
 					<table align="center">
