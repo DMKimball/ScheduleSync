@@ -4,9 +4,12 @@ var notification_data = {
 	'event_name' : 'RandomEvent'
 }
 
+//variable to store new contacts to events
+var contacts = []
+
 $('#clear_create').click(clearFields);
 $('#create_create').click(createEvent);
-//$('element_type').click(doSomething2);
+$('#add_new_contact_create').click(addContact);
 
 
 function clearFields(event) {
@@ -14,6 +17,7 @@ function clearFields(event) {
 	$('#start_time_create').val('');
 	$('#end_time_create').val('');
 	$('#contact_name_create').val('');
+	$('#contact_e-mail_create').val('');
 	$('#event_name_create').val('');
 }
 
@@ -24,24 +28,28 @@ function createEvent(event) {
 		var name = $('#event_name_create').val();
 		var start = $('#start_time_create').val();
 		var end = $('#end_time_create').val();
-		var eventToMake = {name: name, start: start, end: end};
+		var eventToMake = {name: name, start: start, end: end, contacts: contacts};
 		current.push(eventToMake);
 		localStorage.setItem('event',JSON.stringify(current));
-	
 	}
 	else {
 		var name = $('#event_name_create').val();
 		var start = $('#start_time_create').val();
 		var end = $('#end_time_create').val();
-		var current = [{name: name, start: start, end: end}];
+		var current = [{name: name, start: start, end: end, contacts: contacts}];
 		localStorage.setItem('event', JSON.stringify(current)); 
 	}
+	contacts = []
 	//console.log(localStorage.getItem('event'));
 	
 }
 
-function doSomething3(event) {
-	$(this).hide();
+function addContact(event) {
+	var name = $('#contact_name_create').val();
+	var email = $('#contact_e-mail_create').val();
+	contacts.push({contact_name: name, email: email});
+	$('#contact_name_create').val('');
+	$('#contact_e-mail_create').val('');
 }
 
 function addNotification(event) {
