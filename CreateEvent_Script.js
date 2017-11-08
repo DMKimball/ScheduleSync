@@ -1,10 +1,17 @@
 // header
+var notification_data = {
+	'notification_num' : 1,
+	'event_name' : 'RandomEvent'
+}
 
+<<<<<<< HEAD
 $('#clear_create').click(clearFields);
 $('#create_create').click(createEvent);
 //$('element_type').click(doSomething2);
+=======
+>>>>>>> origin/Development
 
-//$('.element_class').click(doSomething3);
+$('#clear_create').click(clearFields);
 
 function clearFields(event) {
 	$('#event_name_create').val('');
@@ -14,6 +21,7 @@ function clearFields(event) {
 	$('#event_name_create').val('');
 }
 
+<<<<<<< HEAD
 function createEvent(event) {
 	//grab current array
 	if (localStorage.getItem('event') != null){
@@ -39,5 +47,20 @@ function createEvent(event) {
 
 function doSomething3(event) {
 	$(this).hide();
+=======
+function addNotification(event) {
+	var source = $("#notification_template").html(); //get html
+	var template = Handlebars.compile(source); //make it usable
+	var parentDiv = $("#notifications_start");
+	var htmlOutput = template(notification_data);
+	parentDiv.append(htmlOutput);
+	notification_data.notification_num++;
+>>>>>>> origin/Development
 }
 
+$(document).ready(
+	function() {
+		$('#add_notification').click(addNotification);
+		addNotification();
+	}
+);
