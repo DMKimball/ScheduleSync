@@ -56,7 +56,8 @@ function generateEvents() {
         var endHour = endDate.getHours();
         var endMin = endDate.getMinutes();
 
-        if((startDate.getMonth()+' '+startDate.getDate()+', '+startDate.getFullYear())==getDateShown()) {
+        //TODO: remove the "true ||" bit so that this works properly
+        if(true || (startDate.getMonth()+' '+startDate.getDate()+', '+startDate.getFullYear())==getDateShown()) {
 
         if(startHour >= 13) {
           startTime = (startHour-12).toString()+':';
