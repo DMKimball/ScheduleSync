@@ -2,6 +2,15 @@ $(document).ready(function() {
   fillFields();
 });
 
+
+$('#delte_edit').click(deleteEvent);
+
+function deleteEvent(event) {
+	//grab the identifiers - just name for now, probably want more, maybe a special id later or something
+	var event_name = $('#eventName').val()
+	
+}
+
 function fillFields(){
   var eventName = localStorage.getItem('eventEdit')
   document.getElementById('eventName').value = eventName;
