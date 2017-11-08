@@ -54,20 +54,20 @@
 				<div class="row">
 					<div class="col-12">
 						Notification message:<br>
-						<input type="text" name="notification_text" value="{{event_name}} will be ending soon.">
+						<input type="text" id="notification_text{{notification_num}}" value="{{event_name}} will be ending soon.">
 					</div>
 				</div>
 					<div class="row">
 						<div class="col-12">
-							Send a notification <input type="number" name="minutes_offset" value="15"> minutes
+							Send a notification <input type="number" id="minutes_offset{{notification_num}}" value="15"> minutes
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-12">
-							<input type="radio" name="offset_type" value="beforeStart"> Before Event Starts
-							<input type="radio" name="offset_type" value="afterStart"> After Event Starts
-							<input type="radio" name="offset_type" value="beforeEnd" checked> Before Event Ends
-							<input type="radio" name="offset_type" value="afterEnd"> After Event Ends
+							<input type="radio" name="offset_type{{notification_num}}" value="beforeStart"> Before Event Starts
+							<input type="radio" name="offset_type{{notification_num}}" value="afterStart"> After Event Starts
+							<input type="radio" name="offset_type{{notification_num}}" value="beforeEnd" checked> Before Event Ends
+							<input type="radio" name="offset_type{{notification_num}}" value="afterEnd"> After Event Ends
 						</div>
 					</div>
 					<div class="row" id="first_notification_recipient{{notification_num}}">
