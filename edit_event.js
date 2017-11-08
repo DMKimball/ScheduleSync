@@ -7,8 +7,18 @@ $('#delte_edit').click(deleteEvent);
 
 function deleteEvent(event) {
 	//grab the identifiers - just name for now, probably want more, maybe a special id later or something
-	var event_name = $('#eventName').val()
-	
+	var event_name = $('#eventName').val();
+	//loop through the events to find the right one
+	var eventList = JSON.parse(localStorage.getItem('event'));
+	//find the event to delete
+	for (i=0; i < eventList.length; i++){
+		if(event_name == eventList[i].name) {
+			//delete the event
+			eventList.splice(i,1);
+		}
+	}
+	//replace the localStorage
+	localStorage.setItem('event',JSON.stringify(eventList));
 }
 
 function fillFields(){
