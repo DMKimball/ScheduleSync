@@ -13,11 +13,11 @@
 			<div class="row">
 				<div class="col-2">
 					Event Name:<br>
-					<input type="text" name="eventname" value="Birthday Party"><br>
+					<input id="eventName" type="text" name="eventname"><br>
 				</div>
 				<div class="col-2">
 					Event Start Time: <br>
-					<input type="datetime-local" value="2017-10-31T08:30"><br>
+					<input id="eventStart" type="datetime-local" value="2017-10-31T08:30"><br>
 				</div>
 			</div>
 			<div class="row">
@@ -28,7 +28,7 @@
 					<a href="TodaysEvents.html"><input type="button" value="Cancel"></a>
 				</div>
 				<div class="col-1">
-					<a href="TodaysEvents.html"><input type="button" value="Confirm"></a>
+					<input id="confirm_button" type="button" value="Confirm">
 				</div>
 			</div>
 			<div class="row">
@@ -44,7 +44,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 		<script src="js/handlebars-v4.0.11.js"></script>
 
-		<!-- JavaScript link, TODO: UPDATE THIS LATER
-		<script src="CreateEvent_Script.js"></script> -->
+		<!-- JavaScript link, TODO: UPDATE THIS LATER -->
+		<script src="edit_event.js"></script>
 	</body>
 </hmtl>

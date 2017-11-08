@@ -28,6 +28,8 @@ function createEvent(event) {
 		var name = $('#event_name_create').val();
 		var start = $('#start_time_create').val();
 		var end = $('#end_time_create').val();
+		var owner = localStorage.getItem('username');
+		var contacts = [owner];
 		var eventToMake = {name: name, start: start, end: end, contacts: contacts};
 		current.push(eventToMake);
 		localStorage.setItem('event',JSON.stringify(current));
@@ -36,12 +38,14 @@ function createEvent(event) {
 		var name = $('#event_name_create').val();
 		var start = $('#start_time_create').val();
 		var end = $('#end_time_create').val();
+		var owner = localStorage.getItem('username');
+		var contacts = [owner];
 		var current = [{name: name, start: start, end: end, contacts: contacts}];
-		localStorage.setItem('event', JSON.stringify(current)); 
+		localStorage.setItem('event', JSON.stringify(current));
 	}
 	contacts = []
 	//console.log(localStorage.getItem('event'));
-	
+
 }
 
 function addContact(event) {
