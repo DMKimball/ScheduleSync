@@ -33,60 +33,72 @@ function generateEvents() {
   if (localStorage.getItem('event') != null) {
     var current = JSON.parse(localStorage.getItem('event'));
 
+    console.log(current);
+
     current.sort(function(a,b){
       return new Date(a.start) - new Date(b.start);
     });
 
     for (var i = 0; i < current.length; i++) {
-      var startDate = new Date(current[i].start);
-      var endDate = new Date(current[i].end);
-      var startHour = startDate.getHours();
-      var startMin = startDate.getMinutes();
-      var endHour = endDate.getHours();
-      var endMin = endDate.getMinutes();
-
-      if((startDate.getMonth()+' '+startDate.getDate()+', '+startDate.getFullYear())==getDateShown()) {
-
-      if(startHour >= 13) {
-        startTime = (startHour-12).toString()+':';
-        if(startMin<=9) {
-          startTime = startTime+'0'+startMin.toString()+' PM';
-        }
-        else {
-          startTime = startTime+startMin.toString()+' PM';
+      var owner = localStorage.getItem('username');
+      var gen = false;
+      for(var j = 0; j < current[i].contacts.length; j++) {
+        if(owner == current[i].contacts[j].contact_name) {
+          console.log("HERE");
+          gen = true;
         }
       }
-      else {
-        startTime = startHour.toString()+':';
-        if(startMin<=9) {
-          startTime = startTime+'0'+startMin.toString()+' AM';
-        }
-        else {
-          startTime = startTime+startMin.toString()+' AM';
-        }
-      }
+      if(gen) {
+        var startDate = new Date(current[i].start);
+        var endDate = new Date(current[i].end);
+        var startHour = startDate.getHours();
+        var startMin = startDate.getMinutes();
+        var endHour = endDate.getHours();
+        var endMin = endDate.getMinutes();
 
-      if(endHour >= 13) {
-        endTime = (endHour-12).toString()+':';
-        if(endMin<=9) {
-          endTime = endTime+'0'+endMin.toString()+' PM';
-        }
-        else {
-          endTime = endTime+endMin.toString()+' PM';
-        }
-      }
-      else {
-        endTime = endHour.toString()+':';
-        if(endMin<=9) {
-          endTime = endTime+'0'+endMin.toString()+' AM';
-        }
-        else {
-          endTime = endTime+endMin.toString()+' AM';
-        }
-      }
+        if((startDate.getMonth()+' '+startDate.getDate()+', '+startDate.getFullYear())==getDateShown()) {
 
-      generateEventCard(current[i].name, startTime, endTime);
-    }
+        if(startHour >= 13) {
+          startTime = (startHour-12).toString()+':';
+          if(startMin<=9) {
+            startTime = startTime+'0'+startMin.toString()+' PM';
+          }
+          else {
+            startTime = startTime+startMin.toString()+' PM';
+          }
+        }
+        else {
+          startTime = startHour.toString()+':';
+          if(startMin<=9) {
+            startTime = startTime+'0'+startMin.toString()+' AM';
+          }
+          else {
+            startTime = startTime+startMin.toString()+' AM';
+          }
+        }
+
+        if(endHour >= 13) {
+          endTime = (endHour-12).toString()+':';
+          if(endMin<=9) {
+            endTime = endTime+'0'+endMin.toString()+' PM';
+          }
+          else {
+            endTime = endTime+endMin.toString()+' PM';
+          }
+        }
+        else {
+          endTime = endHour.toString()+':';
+          if(endMin<=9) {
+            endTime = endTime+'0'+endMin.toString()+' AM';
+          }
+          else {
+            endTime = endTime+endMin.toString()+' AM';
+          }
+        }
+
+        generateEventCard(current[i].name, startTime, endTime);
+      }
+      }
     }
   }
   //return current;

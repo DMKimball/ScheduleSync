@@ -29,3 +29,10 @@ function updateEvent(){
   localStorage.setItem('event',JSON.stringify(current));
   location.href = "TodaysEvents.html";
 }
+
+document.getElementById("share_button").onclick = function() {prepareShare()};
+
+function prepareShare(){
+  localStorage.setItem('shareEvent', localStorage.getItem('eventEdit'));
+  location.href = "ShareEvent.html";
+}
