@@ -1,9 +1,11 @@
 // header
+var notification_data = {
+	'notification_num' : 1,
+	'event_name' : 'RandomEvent'
+}
+
 
 $('#clear_create').click(clearFields);
-//$('element_type').click(doSomething2);
-
-//$('.element_class').click(doSomething3);
 
 function clearFields(event) {
 	$('#event_name_create').val('');
@@ -13,11 +15,18 @@ function clearFields(event) {
 	$('#event_name_create').val('');
 }
 
-function doSomething2(event) {
-	$(this).hide();
+function addNotification(event) {
+	var source = $("#notification_template").html(); //get html
+	var template = Handlebars.compile(source); //make it usable
+	var parentDiv = $("#notifications_start");
+	var htmlOutput = template(notification_data);
+	parentDiv.append(htmlOutput);
+	notification_data.notification_num++;
 }
 
-function doSomething3(event) {
-	$(this).hide();
-}
-
+$(document).ready(
+	function() {
+		$('#add_notification').click(addNotification);
+		addNotification();
+	}
+);
