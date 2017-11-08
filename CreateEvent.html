@@ -33,7 +33,7 @@
 				</div>
 				<div class="col-2">
 					Contact E-mail: <br>
-					<input id="event_name_create" type="text"></br>
+					<input id="contact_e-mail_create" type="text"></br>
 				</div>
 			</div>
 			<div class="row">
@@ -41,6 +41,68 @@
 					<input id="add_new_contact_create" type="button" value="Add new contact">
 				</div>
 			</div>
+
+			<!-- Event Notification Settings -->
+			<div id="notifications_start"></div>
+			<div class="row">
+				<div class="col-1">
+					<input id="add_notification" type="button" value="Add Notification">
+				</div>
+			</div>
+			<script id="notification_template" type="text/x-handlebars-template">
+				<form>
+				<div class="row">
+					<div class="col-12">
+						Notification message:<br>
+						<input type="text" name="notification_text" value="{{event_name}} will be ending soon.">
+					</div>
+				</div>
+					<div class="row">
+						<div class="col-12">
+							Send a notification <input type="number" name="minutes_offset" value="15"> minutes
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<input type="radio" name="offset_type" value="beforeStart"> Before Event Starts
+							<input type="radio" name="offset_type" value="afterStart"> After Event Starts
+							<input type="radio" name="offset_type" value="beforeEnd" checked> Before Event Ends
+							<input type="radio" name="offset_type" value="afterEnd"> After Event Ends
+						</div>
+					</div>
+					<div class="row" id="first_notification_recipient{{notification_num}}">
+						<div class="col-1"></div>
+						<div class="col-2">
+							Contact Name: <br>
+							<input id="contact_name_notification{{notification_num}}-1" type="text"></br>
+						</div>
+						<div class="col-2">
+							Contact E-mail: <br>
+							<input id="contact_email_notification{{notification_num}}-1" type="text"></br>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-1"></div>
+						<div class="col-1">
+							<input id="add_notification_target{{notification_num}}" type="button" value="Add recipient">
+						</div>
+					</div>
+				</form>
+			</script>
+			<script id="notification_recipient" type="text/x-handlebars-template">
+			<div class="row">
+				<div class="col-1"></div>
+				<div class="col-2">
+					Contact Name: <br>
+					<input id="contact_name_notification{{notification_num}}-{{recipient_num}}" type="text"></br>
+				</div>
+				<div class="col-2">
+					Contact E-mail: <br>
+					<input id="contact_email_notification{{notification_num}}-{{recipient_num}}" type="text"></br>
+				</div>
+			</div>
+			</script>
+
 			<div class="row">
 				<div class="col-1">
 					<input id="clear_create" type="reset" value="Clear">
@@ -61,7 +123,7 @@
 		<script src="js/handlebars-v4.0.11.js"></script>
 
 		<!-- JavaScript link, TODO: UPDATE THIS LATER -->
-		<script src="CreateEvent_Script.js"></script> 
+		<script src="CreateEvent_Script.js"></script>
 
 	</body>
 </hmtl>
