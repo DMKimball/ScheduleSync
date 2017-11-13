@@ -1,10 +1,3 @@
-$(document).ready(function() {
-  fillFields();
-});
-
-
-document.getElementById("delete_edit").onclick = function() {deleteEvent()};
-
 function deleteEvent(event) {
 	//grab the identifiers - just name for now, probably want more, maybe a special id later or something
 	var event_name = $('#eventName').val();
@@ -34,8 +27,6 @@ function fillFields(){
   document.getElementById('eventStart').value = startDate;
 }
 
-document.getElementById("confirm_button").onclick = function() {updateEvent()};
-
 function updateEvent(){
   var eventName = localStorage.getItem('eventEdit')
   var current = JSON.parse(localStorage.getItem('event'));
@@ -50,9 +41,14 @@ function updateEvent(){
   location.href = "TodaysEvents.html";
 }
 
-document.getElementById("share_button").onclick = function() {prepareShare()};
-
 function prepareShare(){
   localStorage.setItem('shareEvent', localStorage.getItem('eventEdit'));
   location.href = "ShareEvent.html";
 }
+
+$(document).ready(function() {
+  fillFields();
+  document.getElementById("delete_edit").onclick = function() {deleteEvent()};
+  document.getElementById("confirm_button").onclick = function() {updateEvent()};
+  document.getElementById("share_button").onclick = function() {prepareShare()};
+});
