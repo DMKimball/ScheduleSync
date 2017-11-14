@@ -26,22 +26,25 @@
 					<input id="end_time_create" type="datetime-local"></br>
 				</div>
 			</div>
-			<div id="contacts_start"></div>
-			<script id="contact_template" type="text/x-handlebars-template">
+			<div id="attendees_start"></div>
+			<script id="attendee_template" type="text/x-handlebars-template">
 				<div class="row">
 					<div class="col-2">
-						Contact Name: <br>
-						<input id="contact_name_create{{contact_index}}" type="text"></br>
+						Attendee Name: <br>
+						<input id="attendee_name_create{{attendee_index}}" type="text"></br>
 					</div>
 					<div class="col-2">
-						Contact E-mail: <br>
-						<input id="contact_e-mail_create{{contact_index}}" type="text"></br>
+						Attendee E-mail: <br>
+						<input id="attendee_e-mail_create{{attendee_index}}" type="text"></br>
+					</div>
+					<div class="col-2">
+						<br><input id="delete_attendee{{attendee_index}}" type="button" value="Remove"></br>
 					</div>
 				</div>
 			</script>
 			<div class="row">
 				<div class="col-1">
-					<input id="add_new_contact_create" type="button" value="Add new contact">
+					<input id="add_new_attendee_create" type="button" value="Add new attendee">
 				</div>
 			</div>
 
@@ -54,22 +57,23 @@
 			</div>
 			<script id="notification_template" type="text/x-handlebars-template">
 				<form>
-				<div class="row">
-					<div class="col-12">
-						Notification message:<br>
-						<input type="text" id="notification_text{{notification_num}}" value="{{event_name}} will be ending soon.">
-					</div>
-				</div>
+				<div class="container light-blue-box">
 					<div class="row">
 						<div class="col-12">
-							Send a notification <input type="number" id="minutes_offset{{notification_num}}" value="15"> minutes
+							Notification message:<br>
+							<input type="text" id="notification_text{{notification_num}}" value="{{event_name}} will be ending soon."size="140">
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-12">
-							<input type="radio" name="offset_type{{notification_num}}" value="beforeStart"> Before Event Starts
+							Send a notification <input type="number" id="minutes_offset{{notification_num}}" value="15" size="4"> minutes
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<input type="radio" name="offset_type{{notification_num}}" value="beforeStart" checked> Before Event Starts
 							<input type="radio" name="offset_type{{notification_num}}" value="afterStart"> After Event Starts
-							<input type="radio" name="offset_type{{notification_num}}" value="beforeEnd" checked> Before Event Ends
+							<input type="radio" name="offset_type{{notification_num}}" value="beforeEnd"> Before Event Ends
 							<input type="radio" name="offset_type{{notification_num}}" value="afterEnd"> After Event Ends
 						</div>
 					</div>
@@ -80,18 +84,19 @@
 							<input id="add_recipient{{notification_num}}" type="button" value="Add recipient">
 						</div>
 					</div>
+				</div>
 				</form>
 			</script>
 			<script id="notification_recipient" type="text/x-handlebars-template">
 			<div class="row">
 				<div class="col-1"></div>
 				<div class="col-2">
-					Contact Name: <br>
-					<input id="contact_name_notification{{notification_num}}-{{recipient_num}}" type="text"></br>
+					Recipient Name: <br>
+					<input id="recipient_name_notification{{notification_num}}-{{recipient_num}}" type="text"></br>
 				</div>
 				<div class="col-2">
-					Contact E-mail: <br>
-					<input id="contact_email_notification{{notification_num}}-{{recipient_num}}" type="text"></br>
+					Recipient E-mail: <br>
+					<input id="recipient_email_notification{{notification_num}}-{{recipient_num}}" type="text"></br>
 				</div>
 			</div>
 			</script>

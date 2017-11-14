@@ -1,20 +1,20 @@
 // header
 var notification_data = {
 	'notification_num' : 0,
-	'notification_contact_nums' : [],
-	'event_name' : 'RandomEvent'
+	'notification_attendee_nums' : [],
+	'event_name' : ''
 };
 
-//variable to store new contacts to events
-var contacts = [];
-var num_contacts = 0;
+//variable to store new attendees to events
+var attendees = [];
+var num_attendees = 0;
 
 function clearFields(event) {
 	$('#event_name_create').val('');
 	$('#start_time_create').val('');
 	$('#end_time_create').val('');
-	$('#contact_name_create').val('');
-	$('#contact_e-mail_create').val('');
+	$('#attendee_name_create').val('');
+	$('#attendee_e-mail_create').val('');
 	$('#event_name_create').val('');
 }
 
@@ -37,14 +37,14 @@ function createEvent(event) {
 			notification_list.push(notif);
 		}
 
-		for(var count = 1; count < num_contacts; count++) {
-			var name = $('#contact_name_create' + count).val();
-			var email = $('#contact_e-mail_create' + count).val();
-			contacts.push({contact_name: name, email: email});
+		for(var count = 1; count < num_attendees; count++) {
+			var name = $('#attendee_name_create' + count).val();
+			var email = $('#attendee_e-mail_create' + count).val();
+			attendees.push({contact_name: name, email: email});
 		}
-		contacts.push({contact_name: owner, email: email});
+		attendees.push({contact_name: owner, email: email});
 
-		var eventToMake = {name: namePrime, email: email2, start: start, end: end, contacts: contacts, notifications: notification_list};
+		var eventToMake = {name: namePrime, email: email2, start: start, end: end, contacts: attendees, notifications: notification_list};
 		current.push(eventToMake);
 		localStorage.setItem('event',JSON.stringify(current));
 	}
@@ -64,34 +64,34 @@ function createEvent(event) {
 			notification_list.push(notif);
 		}
 
-		for(var count = 1; count < num_contacts; count++) {
-			var name = $('#contact_name_create' + count).val();
-			var email = $('#contact_e-mail_create' + count).val();
-			contacts.push({contact_name: name, email: email});
+		for(var count = 1; count < num_attendees; count++) {
+			var name = $('#attendee_name_create' + count).val();
+			var email = $('#attendee_e-mail_create' + count).val();
+			attendees.push({contact_name: name, email: email});
 		}
-		contacts.push({contact_name: owner, email: email});
+		attendees.push({contact_name: owner, email: email});
 
-		var current = [{name: namePrime, email: email2, start: start, end: end, contacts: contacts, notifications: notification_list}];
+		var current = [{name: namePrime, email: email2, start: start, end: end, contacts: attendees, notifications: notification_list}];
 		localStorage.setItem('event', JSON.stringify(current));
 	}
-	contacts = []
+	attendees = []
 	//console.log(localStorage.getItem('event'));
 
 };
 
-function addContact(event) {
-	num_contacts++;
-	var source = $("#contact_template").html(); //get html
+function addAttendee(event) {
+	num_attendees++;
+	var source = $("#attendee_template").html(); //get html
 	var template = Handlebars.compile(source); //make it usable
-	var parentDiv = $("#contacts_start");
-	var htmlOutput = template({contact_index:num_contacts});
+	var parentDiv = $("#attendees_start");
+	var htmlOutput = template({attendee_index:num_attendees});
 	parentDiv.append(htmlOutput);
 };
 
 function addNotification(event) {
 	notification_data.notification_num++;
 	notification_data.event_name = $('#event_name_create').val();
-	notification_data.notification_contact_nums.push(0);
+	notification_data.notification_attendee_nums.push(0);
 	var source = $("#notification_template").html(); //get html
 	var template = Handlebars.compile(source); //make it usable
 	var parentDiv = $("#notifications_start");
@@ -102,7 +102,7 @@ function addNotification(event) {
 
 function addRecipient(event) {
 	var notif_index = parseInt($(this).attr('id').substring(13));
-	var recipient_index = ++notification_data.notification_contact_nums[notif_index-1];
+	var recipient_index = ++notification_data.notification_attendee_nums[notif_index-1];
 
 	var source = $("#notification_recipient").html(); //get html
 	var template = Handlebars.compile(source); //make it usable
@@ -116,9 +116,9 @@ $(document).ready(
 		$('#add_notification').click(addNotification);
 		$('#clear_create').click(clearFields);
 		$('#create_create').click(createEvent);
-		$('#add_new_contact_create').click(addContact);
+		$('#add_new_attendee_create').click(addAttendee);
 
 		addNotification();
-		addContact();
+		addAttendee();
 	}
 );
