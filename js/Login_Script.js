@@ -3,6 +3,7 @@ $(document).ready(function() {
 	setDate();
 	function login(event) {
 		localStorage.setItem('username', $('#username_field').val());
+		localStorage.setItem('email', $('#email_field').val());
 		window.location.href = "TodaysEvents.html";
 	}
 

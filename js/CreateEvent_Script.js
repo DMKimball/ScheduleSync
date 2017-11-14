@@ -26,6 +26,7 @@ function createEvent(event) {
 		var start = $('#start_time_create').val();
 		var end = $('#end_time_create').val();
 		var owner = localStorage.getItem('username');
+		var email2 = localStorage.getItem('email');
 
 		var notification_list = [];
 		for(var count = 1; count <= notification_data.notification_num; count++) {
@@ -41,9 +42,9 @@ function createEvent(event) {
 			var email = $('#contact_e-mail_create' + count).val();
 			contacts.push({contact_name: name, email: email});
 		}
-		contacts.push({contact_name: owner, email: owner+'@gmail.com'});
+		contacts.push({contact_name: owner, email: email});
 
-		var eventToMake = {name: name, start: start, end: end, contacts: contacts, notifications: notification_list};
+		var eventToMake = {name: name, email: email2, start: start, end: end, contacts: contacts, notifications: notification_list};
 		current.push(eventToMake);
 		localStorage.setItem('event',JSON.stringify(current));
 	}
@@ -52,6 +53,7 @@ function createEvent(event) {
 		var start = $('#start_time_create').val();
 		var end = $('#end_time_create').val();
 		var owner = localStorage.getItem('username');
+		var email2 = localStorage.getItem('email');
 
 		var notification_list = [];
 		for(var count = 1; count <= notification_data.notification_num; count++) {
@@ -67,9 +69,9 @@ function createEvent(event) {
 			var email = $('#contact_e-mail_create' + count).val();
 			contacts.push({contact_name: name, email: email});
 		}
-		contacts.push({contact_name: owner, email: owner+'@gmail.com'});
+		contacts.push({contact_name: owner, email: email});
 
-		var current = [{name: name, start: start, end: end, contacts: contacts, notifications: notification_list}];
+		var current = [{name: name, email: email2, start: start, end: end, contacts: contacts, notifications: notification_list}];
 		localStorage.setItem('event', JSON.stringify(current));
 	}
 	contacts = []
