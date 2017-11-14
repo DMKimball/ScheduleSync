@@ -22,7 +22,7 @@ function createEvent(event) {
 	//grab current array
 	if (localStorage.getItem('event') != null){
 		var current = JSON.parse(localStorage.getItem('event'));
-		var name = $('#event_name_create').val();
+		var namePrime = $('#event_name_create').val();
 		var start = $('#start_time_create').val();
 		var end = $('#end_time_create').val();
 		var owner = localStorage.getItem('username');
@@ -44,12 +44,12 @@ function createEvent(event) {
 		}
 		contacts.push({contact_name: owner, email: email});
 
-		var eventToMake = {name: name, email: email2, start: start, end: end, contacts: contacts, notifications: notification_list};
+		var eventToMake = {name: namePrime, email: email2, start: start, end: end, contacts: contacts, notifications: notification_list};
 		current.push(eventToMake);
 		localStorage.setItem('event',JSON.stringify(current));
 	}
 	else {
-		var name = $('#event_name_create').val();
+		var namePrime = $('#event_name_create').val();
 		var start = $('#start_time_create').val();
 		var end = $('#end_time_create').val();
 		var owner = localStorage.getItem('username');
@@ -71,7 +71,7 @@ function createEvent(event) {
 		}
 		contacts.push({contact_name: owner, email: email});
 
-		var current = [{name: name, email: email2, start: start, end: end, contacts: contacts, notifications: notification_list}];
+		var current = [{name: namePrime, email: email2, start: start, end: end, contacts: contacts, notifications: notification_list}];
 		localStorage.setItem('event', JSON.stringify(current));
 	}
 	contacts = []
