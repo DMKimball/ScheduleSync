@@ -1,11 +1,13 @@
 $(document).ready(function() {
 
 	setDate();
+	//call function to load fake events if no events in system
 	function login(event) {
 		localStorage.setItem('username', $('#username_field').val());
 		localStorage.setItem('email', $('#email_field').val());
 		window.location.href = "TodaysEvents.html";
 	}
+	loadFakeEvents();
 
 	$('#loginbutton').click(login);
 
@@ -32,4 +34,16 @@ function setDate(){
 	localStorage.setItem('dateShown_t', today);
 	console.log(localStorage.getItem('dateShown_t'));
 
+}
+
+var fake_events = [{"name":"Moon landing","email":"BobSmith","start":"2017-11-15T16:00","end":"2017-11-15T20:00","contacts":[{"contact_name":"Niel Armstrong","email":"OneSmallStep"},{"contact_name":"Buzz Aldrin","email":"forMankind"},{"contact_name":"Michael Collins","email":"WellShucks"},{"contact_name":"Andrew","email":"WellShucks"}],"notifications":[{"desc":" will be ending soon.","offset_num":"15","offset_type":"beforeEnd"}]},{"name":"Moon Landing pre-party","email":"BobSmith","start":"2017-11-14T17:00","end":"2017-11-14T19:00","contacts":[{"contact_name":"Hundred Acre Woods","email":"Poohbear"},{"contact_name":"Frankie","email":"glue"},{"contact_name":"Bob from Jersey","email":"bluebay"},{"contact_name":"Andrew","email":"bluebay"}],"notifications":[{"desc":" will be ending soon.","offset_num":"15","offset_type":"beforeEnd"}]},{"name":"Holiday Bash","email":"BobSmith","start":"2017-11-27T11:00","end":"2017-11-27T20:00","contacts":[{"contact_name":"Mary","email":"Mary@gmail.com"},{"contact_name":"Fred","email":"Fred@gmail.com"},{"contact_name":"Kind","email":"Kind@gmail.com"},{"contact_name":"Philip","email":"Philip@yahoo.com"},{"contact_name":"glass","email":"music@gmail.com"},{"contact_name":"Andrew","email":"music@gmail.com"}],"notifications":[{"desc":"Be there or be square","offset_num":"30","offset_type":"beforeStart"}]},{"name":"Glass blowing class","email":"BobSmith","start":"2017-11-15T08:00","end":"2017-11-15T10:00","contacts":[{"contact_name":"Me","email":"me@gmail.com"},{"contact_name":"Myself","email":"myself@hotmail.com"},{"contact_name":"Irene","email":"Irene@gmail.com"},{"contact_name":"Andrew","email":"Irene@gmail.com"}],"notifications":[{"desc":" will be ending soon.","offset_num":"15","offset_type":"beforeEnd"}]},{"name":"Epic Concert","email":"BobSmith","start":"2017-11-15T22:00","end":"2017-11-16T01:00","contacts":[{"contact_name":"That one kid who has class in the morning","email":"badIdeas@gmail.com"},{"contact_name":"Andrew","email":"badIdeas@gmail.com"}],"notifications":[{"desc":"Get Home!!!","offset_num":"15","offset_type":"beforeEnd"}]},{"name":"Fireworks display","email":"BobSmith","start":"2017-11-19T22:00","end":"2017-11-19T22:30","contacts":[{"contact_name":"Dennis","email":"Dennis@clam.com"},{"contact_name":"Dino","email":"Dino@dino.com"},{"contact_name":"Barb","email":"barb@Whathappenedtobarb.com"},{"contact_name":"Andrew","email":"barb@Whathappenedtobarb.com"}],"notifications":[{"desc":" will be ending soon.","offset_num":"15","offset_type":"beforeEnd"}]},{"name":"Georgia state fair","email":"BobSmith","start":"2017-12-01T07:00","end":"2017-12-01T21:00","contacts":[{"contact_name":"The whole town","email":"everyone@gmail.com"},{"contact_name":"Andrew","email":"everyone@gmail.com"}],"notifications":[{"desc":" will be ending soon.","offset_num":"15","offset_type":"beforeEnd"}]},{"name":"Python Meetup","email":"BobSmith","start":"2017-11-26T10:57","end":"2017-11-26T14:00","contacts":[{"contact_name":"Snek","email":"Snek@yahoo.com"},{"contact_name":"Greg","email":"Greg@gmail.com"},{"contact_name":"Andrew","email":"Greg@gmail.com"}],"notifications":[{"desc":" will be ending soon.","offset_num":"15","offset_type":"beforeEnd"}]},{"name":"Picnic at Hanging rock","email":"BobSmith","start":"2017-11-18T13:00","end":"2017-11-18T15:00","contacts":[{"contact_name":"TeacherA","email":"A@gmail.com"},{"contact_name":"TeacherB","email":"B@gmail.com"},{"contact_name":"StudentA","email":"sA@gmail.com"},{"contact_name":"StudentB","email":"sB@gmail.com"},{"contact_name":"Andrew","email":"sB@gmail.com"}],"notifications":[{"desc":" will be ending soon.","offset_num":"15","offset_type":"beforeEnd"}]},{"name":"Water Park Adventure","email":"BobSmith","start":"2017-11-24T10:00","end":"2017-11-24T18:00","contacts":[{"contact_name":"Bob","email":"bob@gmail.com"},{"contact_name":"Beth","email":"beth@gmail.com"},{"contact_name":"Andrew","email":"beth@gmail.com"}],"notifications":[{"desc":" will be ending soon.","offset_num":"15","offset_type":"beforeEnd"}]}]
+
+// function to load in fake events database if no events are present.
+function loadFakeEvents () {
+	console.log('HELLO')
+	if(localStorage.getItem('event') == null) {
+		console.log('We here?')
+		//load in fake events array
+		localStorage.setItem('event', JSON.stringify(fake_events));
+	}
 }
