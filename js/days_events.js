@@ -24,11 +24,19 @@ $(document).ready(function() {
   console.log(name);
   generateDateButtons();
   generateEvents();
+  $('#logout_todays_events').click(logout);
   // Generate events based on sharing
   document.getElementById('day_date').innerHTML = generateDate();
 });
 
 document.getElementById("today_button").onclick = function() {generateToday()};
+
+
+function logout() {
+  localStorage.setItem('username', '');
+  localStorage.setItem('email', '');
+  window.location.assign("Login_Page.html");
+}
 
 function generateDate() {
   var today = getDateShown_t();
