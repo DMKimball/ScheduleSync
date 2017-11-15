@@ -12,41 +12,27 @@
 			<h1>New Event:</h1>
 			<div class="row">
 				<div class="col-2">
-					Event Name:<br>
+					<strong>Event Name:</strong><br>
 					<input id="event_name_create" type="text" name="eventname"><br>
 				</div>
 				<div class="col-2">
-					Event Start Time: <br>
+					<strong>Event Start Time:</strong> <br>
 					<input id="start_time_create" type="datetime-local"><br>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-2">
-					Event End Time: <br>
+					<strong>Event End Time:</strong> <br>
 					<input id="end_time_create" type="datetime-local"></br>
 				</div>
 			</div>
-			<div id="attendees_start"></div>
-			<script id="attendee_template" type="text/x-handlebars-template">
-				<div class="row">
-					<div class="col-2">
-						Attendee Name: <br>
-						<input id="attendee_name_create{{attendee_index}}" type="text"></br>
-					</div>
-					<div class="col-2">
-						Attendee E-mail: <br>
-						<input id="attendee_e-mail_create{{attendee_index}}" type="text"></br>
-					</div>
-					<div class="col-2">
-						<br><input id="delete_attendee{{attendee_index}}" type="button" value="Remove"></br>
-					</div>
-				</div>
-			</script>
 			<div class="row">
-				<div class="col-1">
-					<input id="add_new_attendee_create" type="button" value="Add new attendee">
+				<div class="col-6" id="attendees_start">
 				</div>
 			</div>
+			<script id="attendee_template" type="text/x-handlebars-template">
+				<input id="attendee_checkbox{{attendee_index}}" type="checkbox" value="{{attendee_name}}">{{attendee_name_text}}<br>
+			</script>
 
 			<!-- Event Notification Settings -->
 			<div id="notifications_start"></div>
@@ -60,8 +46,8 @@
 				<div class="container light-blue-box">
 					<div class="row">
 						<div class="col-12">
-							Notification message:<br>
-							<input type="text" id="notification_text{{notification_num}}" value="{{event_name}} will be ending soon."size="140">
+							<strong>Notification Message:</strong><br>
+							<input type="text" id="notification_text{{notification_num}}" value="An event will be starting soon."size="140">
 						</div>
 					</div>
 					<div class="row">
@@ -77,26 +63,20 @@
 							<input type="radio" name="offset_type{{notification_num}}" value="afterEnd"> After Event Ends
 						</div>
 					</div>
-					<div id="recipient_start{{notification_num}}"></div>
 					<div class="row">
-						<div class="col-1"></div>
-						<div class="col-1">
-							<input id="add_recipient{{notification_num}}" type="button" value="Add recipient">
+						<div class="col-12">
+							<strong>Notification Recipients:</strong>
 						</div>
 					</div>
+					<div id="recipient_start{{notification_num}}"></div>
 				</div>
 				</form>
 			</script>
 			<script id="notification_recipient" type="text/x-handlebars-template">
 			<div class="row">
 				<div class="col-1"></div>
-				<div class="col-2">
-					Recipient Name: <br>
-					<input id="recipient_name_notification{{notification_num}}-{{recipient_num}}" type="text"></br>
-				</div>
-				<div class="col-2">
-					Recipient E-mail: <br>
-					<input id="recipient_email_notification{{notification_num}}-{{recipient_num}}" type="text"></br>
+				<div class="col-11">
+						<input id="recipient_checkbox{{notification_num}}-{{recipient_index}}" type="checkbox" value="{{recipient_name}}" checked>{{recipient_name_text}}<br>
 				</div>
 			</div>
 			</script>

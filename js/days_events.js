@@ -64,7 +64,7 @@ function generateEvents() {
       var owner = localStorage.getItem('username');
       var gen = false;
       for(var j = 0; j < current[i].contacts.length; j++) {
-        if(owner == current[i].contacts[j].contact_name) {
+        if(owner === current[i].contacts[j].name) {
           console.log("HERE");
           gen = true;
         }
