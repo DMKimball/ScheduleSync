@@ -9,14 +9,51 @@ var attendees = [];
 var num_attendees = 0;
 
 var eventIndex = -1;
+var edittedEvent = null;
 
 function clearFields(event) {
 	$('#event_name_edit').val('');
 	$('#start_time_edit').val('');
 	$('#end_time_edit').val('');
-	$('#attendee_name_edit').val('');
-	$('#attendee_e-mail_edit').val('');
-	$('#event_name_edit').val('');
+
+	$("#attendees_start").empty();
+	$("#notifications_start").empty();
+	notification_data.notification_num = 0;
+	num_attendees = 0;
+}
+
+function resetFields(event) {
+	clearFields();
+	$('#event_name_edit').val(edittedEvent.name);
+	$('#start_time_edit').val(edittedEvent.start);
+	$('#end_time_edit').val(edittedEvent.end);
+	var notif_list = edittedEvent.notifications;
+	attendees = edittedEvent.contacts;
+
+	var contacts_list = JSON.parse(localStorage.getItem("contacts"));
+	var current_user = localStorage.getItem("username");
+	for(var count = 0; count < contacts_list.length; count++) {
+		console.log("Adding attendee " + (count+1));
+		var curr_contact = contacts_list[count].name;
+		if(curr_contact === current_user) {
+			var text_name = curr_contact + " (You)";
+			addAttendee({attendee_index:count+1, attendee_name:curr_contact, attendee_name_text:text_name});
+		}
+		else addAttendee({attendee_index:count+1, attendee_name:curr_contact, attendee_name_text:curr_contact});
+		for(var count2 = 0; count2 < attendees.length; count2++) {
+			if(curr_contact === attendees[count2].name) {
+				$("#attendee_checkbox" + (count+1)).prop("checked", true);
+			}
+		}
+	}
+
+	for(var count = 0; count < notif_list.length; count++) {
+		addNotification();
+		var notif = notif_list[count];
+		$("#notification_text" + (count+1)).val(notif.desc);
+		$("#minutes_offset" + (count+1)).val(notif.offset_num);
+		$('input[name=offset_type'+count+']:checked').val(notif.offset_type);
+	}
 }
 
 function editEvent(event) {
@@ -144,50 +181,22 @@ function addRecipient(event) {
 $(document).ready(
 	function() {
 		$('#add_notification').click(addNotification);
-		$('#clear_edit').click(clearFields);
+		$('#clear_edit').click(resetFields);
 		$('#edit_confirm').click(editEvent);
 		$('#edit_delete').click(deleteEvent);
 
 		var all_events = JSON.parse(localStorage.getItem('event'));
-		var edittedEvent = localStorage.getItem('eventEdit');
-		var notif_list = [];
+		edittedEvent = localStorage.getItem('eventEdit');
 
 		for(var count = 0; count < all_events.length; count++) {
 			if(all_events[count].name === edittedEvent) {
 				edittedEvent = all_events[count];
 				eventIndex = count;
-				$('#event_name_edit').val(edittedEvent.name);
-				$('#start_time_edit').val(edittedEvent.start);
-				$('#end_time_edit').val(edittedEvent.end);
-				notif_list = edittedEvent.notifications;
-				attendees = edittedEvent.contacts;
 				break;
 			}
 		}
 
-		var contacts_list = JSON.parse(localStorage.getItem("contacts"));
-		var current_user = localStorage.getItem("username");
-		for(var count = 0; count < contacts_list.length; count++) {
-			console.log("Adding attendee " + (count+1));
-			var curr_contact = contacts_list[count].name;
-			if(curr_contact === current_user) {
-				var text_name = curr_contact + " (You)";
-				addAttendee({attendee_index:count+1, attendee_name:curr_contact, attendee_name_text:text_name});
-			}
-			else addAttendee({attendee_index:count+1, attendee_name:curr_contact, attendee_name_text:curr_contact});
-			for(var count2 = 0; count2 < attendees.length; count2++) {
-				if(curr_contact === attendees[count2].name) {
-					$("#attendee_checkbox" + (count+1)).prop("checked", true);
-				}
-			}
-		}
+		resetFields();
 
-		for(var count = 0; count < notif_list.length; count++) {
-			addNotification();
-			var notif = notif_list[count];
-			$("#notification_text" + (count+1)).val(notif.desc);
-			$("#minutes_offset" + (count+1)).val(notif.offset_num);
-			$('input[name=offset_type'+count+']:checked').val(notif.offset_type);
-		}
 	}
 );
