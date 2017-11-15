@@ -68,7 +68,6 @@ function editEvent(event) {
 	var start = $('#start_time_edit').val();
 	var end = $('#end_time_edit').val();
 	var owner = localStorage.getItem('username');
-	var email2 = localStorage.getItem('email');
 
 	var notification_list = [];
 	for(var count = 1; count <= notification_data.notification_num; count++) {
@@ -79,7 +78,7 @@ function editEvent(event) {
 		notification_list.push(notif);
 	}
 
-	var eventToMake = {name: namePrime, email: email2, start: start, end: end, contacts: attendees, notifications: notification_list};
+	var eventToMake = {name: namePrime, start: start, end: end, contacts: attendees, notifications: notification_list};
 	current_events.splice(eventIndex, 1);
 	current_events.push(eventToMake);
 	console.log(JSON.stringify(current_events));
