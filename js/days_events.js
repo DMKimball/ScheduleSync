@@ -66,7 +66,7 @@ function generateEvents() {
 
       //gen <- true if current user is on event contact
       for(var j = 0; j < current[i].contacts.length; j++) {
-        if(owner == current[i].contacts[j].contact_name) {
+        if(owner === current[i].contacts[j].name) {
           gen = true;
         }
       }
