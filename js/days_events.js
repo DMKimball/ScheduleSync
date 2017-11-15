@@ -88,9 +88,15 @@ function generateEvents() {
         var dayShown =  d.getMonth()+' '+d.getDate()+', '+d.getFullYear();
         var startsToday = startDate.getMonth()+' '+startDate.getDate()+', '+startDate.getFullYear() == dayShown;
         var endsToday = endDate.getMonth()+' '+endDate.getDate()+', '+endDate.getFullYear() == dayShown;
+        var checkYear = d.getFullYear() >= startDate.getFullYear() && d.getFullYear() <= endDate.getFullYear();
+        console.log(checkYear);
+        var checkMonth = d.getMonth() >= startDate.getMonth() && d.getMonth() <= endDate.getMonth();
+        console.log(checkMonth);
+        var checkDay = d.getDate() >= startDate.getDate() && d.getDate() <= endDate.getDate();
+        console.log(checkDay);
 
         //Display event if it starts or ends on day shown.
-        if(startsToday || endsToday) {
+        if(checkYear && checkMonth && checkDay) {
           //Date formating
           if(startHour >= 13) {
             startTime = (startHour-12).toString()+':';
