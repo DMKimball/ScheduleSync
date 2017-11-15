@@ -63,14 +63,17 @@ function generateEvents() {
     for (var i = 0; i < current.length; i++) {
       var owner = localStorage.getItem('username');
       var gen = false;
+
+      //gen <- true if current user is on event contact
       for(var j = 0; j < current[i].contacts.length; j++) {
         if(owner == current[i].contacts[j].contact_name) {
-          console.log("HERE");
           gen = true;
         }
       }
+      //gen(erate) event if current user has permission to view it.
       if(gen) {
 
+        //Get event start and end times
         var startDate = new Date(current[i].start);
         var endDate = new Date(current[i].end);
         var startHour = startDate.getHours();
@@ -78,55 +81,58 @@ function generateEvents() {
         var endHour = endDate.getHours();
         var endMin = endDate.getMinutes();
 
-        var newD = getDateShown_t();
-        var dStr =  newD.getMonth()+' '+newD.getDate()+', '+newD.getFullYear()
+        //Set bool to check if event should be displayed
+        var d = getDateShown_t();
+        var dayShown =  d.getMonth()+' '+d.getDate()+', '+d.getFullYear();
+        var startsToday = startDate.getMonth()+' '+startDate.getDate()+', '+startDate.getFullYear() == dayShown;
+        var endsToday = endDate.getMonth()+' '+endDate.getDate()+', '+endDate.getFullYear() == dayShown;
 
-        if((startDate.getMonth()+' '+startDate.getDate()+', '+startDate.getFullYear())==dStr) {
-
-        if(startHour >= 13) {
-          startTime = (startHour-12).toString()+':';
-          if(startMin<=9) {
-            startTime = startTime+'0'+startMin.toString()+' PM';
+        //Display event if it starts or ends on day shown.
+        if(startsToday || endsToday) {
+          //Date formating
+          if(startHour >= 13) {
+            startTime = (startHour-12).toString()+':';
+            if(startMin<=9) {
+              startTime = startTime+'0'+startMin.toString()+' PM';
+            }
+            else {
+              startTime = startTime+startMin.toString()+' PM';
+            }
           }
           else {
-            startTime = startTime+startMin.toString()+' PM';
+            startTime = startHour.toString()+':';
+            if(startMin<=9) {
+              startTime = startTime+'0'+startMin.toString()+' AM';
+            }
+            else {
+              startTime = startTime+startMin.toString()+' AM';
+            }
           }
-        }
-        else {
-          startTime = startHour.toString()+':';
-          if(startMin<=9) {
-            startTime = startTime+'0'+startMin.toString()+' AM';
-          }
-          else {
-            startTime = startTime+startMin.toString()+' AM';
-          }
-        }
-
-        if(endHour >= 13) {
-          endTime = (endHour-12).toString()+':';
-          if(endMin<=9) {
-            endTime = endTime+'0'+endMin.toString()+' PM';
-          }
-          else {
-            endTime = endTime+endMin.toString()+' PM';
-          }
-        }
-        else {
-          endTime = endHour.toString()+':';
-          if(endMin<=9) {
-            endTime = endTime+'0'+endMin.toString()+' AM';
+          //Date formating
+          if(endHour >= 13) {
+            endTime = (endHour-12).toString()+':';
+            if(endMin<=9) {
+              endTime = endTime+'0'+endMin.toString()+' PM';
+            }
+            else {
+              endTime = endTime+endMin.toString()+' PM';
+            }
           }
           else {
-            endTime = endTime+endMin.toString()+' AM';
+            endTime = endHour.toString()+':';
+            if(endMin<=9) {
+              endTime = endTime+'0'+endMin.toString()+' AM';
+            }
+            else {
+              endTime = endTime+endMin.toString()+' AM';
+            }
           }
+          //Display event on event button
+          generateEventCard(current[i].name, startTime, endTime);
         }
-
-        generateEventCard(current[i].name, startTime, endTime);
-      }
       }
     }
   }
-  //return current;
 }
 
 function generateEventCard(eventName, eventStart, eventEnd) {
