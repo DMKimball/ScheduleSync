@@ -49,6 +49,12 @@ function editEvent(event) {
 	localStorage.setItem('event',JSON.stringify(current_events));
 };
 
+function deleteEvent(event) {
+	var current_events = JSON.parse(localStorage.getItem("event"));
+	current_events.splice(eventIndex, 1);
+	localStorage.setItem('event',JSON.stringify(current_events));
+}
+
 function updateRecipientLists() {
 	console.log("Updating Recipient Lists...");
 	for(var count = 1; count <= notification_data.notification_num; count++) {
@@ -140,6 +146,7 @@ $(document).ready(
 		$('#add_notification').click(addNotification);
 		$('#clear_edit').click(clearFields);
 		$('#edit_confirm').click(editEvent);
+		$('#edit_delete').click(deleteEvent);
 
 		var all_events = JSON.parse(localStorage.getItem('event'));
 		var edittedEvent = localStorage.getItem('eventEdit');
