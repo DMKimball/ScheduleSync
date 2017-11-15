@@ -130,6 +130,8 @@ function generateEvents() {
             }
           }
           //Display event on event button
+          startTime = (startDate.getMonth()+1)+'/'+startDate.getDate()+'/'+startDate.getFullYear()+' at '+startTime
+          endTime = (endDate.getMonth()+1)+'/'+endDate.getDate()+'/'+endDate.getFullYear()+' at '+endTime
           generateEventCard(current[i].name, startTime, endTime);
         }
       }
@@ -138,7 +140,7 @@ function generateEvents() {
 }
 
 function generateEventCard(eventName, eventStart, eventEnd) {
-  $('#event_table').append('<tr><td><button id="'+eventName+'" class="event_button"  onclick="eventClicked(this.id)"                >Event : '+eventName+'<br/> Start: '+eventStart+'<br/> End: '+eventEnd+'</button></td></tr>');
+  $('#event_table').append('<tr><td><button id="'+eventName+'" class="event_button"  onclick="eventClicked(this.id)">Event : '+eventName+'<br/> Start: '+eventStart+'<br/> End: '+eventEnd+'</button></td></tr>');
 }
 
 function getDateShown(){
