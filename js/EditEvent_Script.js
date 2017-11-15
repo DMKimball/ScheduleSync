@@ -8,16 +8,18 @@ var notification_data = {
 var attendees = [];
 var num_attendees = 0;
 
+var eventIndex = -1;
+
 function clearFields(event) {
-	$('#event_name_create').val('');
-	$('#start_time_create').val('');
-	$('#end_time_create').val('');
-	$('#attendee_name_create').val('');
-	$('#attendee_e-mail_create').val('');
-	$('#event_name_create').val('');
+	$('#event_name_edit').val('');
+	$('#start_time_edit').val('');
+	$('#end_time_edit').val('');
+	$('#attendee_name_edit').val('');
+	$('#attendee_e-mail_edit').val('');
+	$('#event_name_edit').val('');
 }
 
-function createEvent(event) {
+function editEvent(event) {
 	//grab current array
 	var raw_events_str = localStorage.getItem('event');
 	var current_events = [];
@@ -25,9 +27,9 @@ function createEvent(event) {
 		current_events = JSON.parse(raw_events_str);
 	}
 
-	var namePrime = $('#event_name_create').val();
-	var start = $('#start_time_create').val();
-	var end = $('#end_time_create').val();
+	var namePrime = $('#event_name_edit').val();
+	var start = $('#start_time_edit').val();
+	var end = $('#end_time_edit').val();
 	var owner = localStorage.getItem('username');
 	var email2 = localStorage.getItem('email');
 
@@ -41,6 +43,7 @@ function createEvent(event) {
 	}
 
 	var eventToMake = {name: namePrime, email: email2, start: start, end: end, contacts: attendees, notifications: notification_list};
+	current_events.splice(eventIndex, 1);
 	current_events.push(eventToMake);
 	console.log(JSON.stringify(current_events));
 	localStorage.setItem('event',JSON.stringify(current_events));
@@ -74,7 +77,7 @@ function updateAttendees(event) {
 	var contacts_list = JSON.parse(localStorage.getItem("contacts"));
 	for(var count = 0; count < contacts_list.length; count++) {
 		if(contacts_list[count].name === attendee_name) {
-			attendee_email = contacts_list[count].email;
+			attendee_email = contacts_list.email;
 			break;
 		}
 	}
@@ -85,7 +88,6 @@ function updateAttendees(event) {
 				return;
 			}
 		}
-		console.log({name:attendee_name, email:attendee_email});
 		attendees.push({name:attendee_name, email:attendee_email})
 	}
 	else {
@@ -136,12 +138,25 @@ function addRecipient(event) {
 $(document).ready(
 	function() {
 		$('#add_notification').click(addNotification);
-		$('#clear_create').click(clearFields);
-		$('#create_create').click(createEvent);
+		$('#clear_edit').click(clearFields);
+		$('#edit_confirm').click(editEvent);
 
-		attendees.push({name:localStorage.getItem("username"), email:localStorage.getItem("email")})
+		var all_events = JSON.parse(localStorage.getItem('event'));
+		var edittedEvent = localStorage.getItem('eventEdit');
+		var notif_list = [];
 
-		addNotification();
+		for(var count = 0; count < all_events.length; count++) {
+			if(all_events[count].name === edittedEvent) {
+				edittedEvent = all_events[count];
+				eventIndex = count;
+				$('#event_name_edit').val(edittedEvent.name);
+				$('#start_time_edit').val(edittedEvent.start);
+				$('#end_time_edit').val(edittedEvent.end);
+				notif_list = edittedEvent.notifications;
+				attendees = edittedEvent.contacts;
+				break;
+			}
+		}
 
 		var contacts_list = JSON.parse(localStorage.getItem("contacts"));
 		var current_user = localStorage.getItem("username");
@@ -151,9 +166,21 @@ $(document).ready(
 			if(curr_contact === current_user) {
 				var text_name = curr_contact + " (You)";
 				addAttendee({attendee_index:count+1, attendee_name:curr_contact, attendee_name_text:text_name});
-				$("#attendee_checkbox" + (count+1)).prop("checked", true);
 			}
 			else addAttendee({attendee_index:count+1, attendee_name:curr_contact, attendee_name_text:curr_contact});
+			for(var count2 = 0; count2 < attendees.length; count2++) {
+				if(curr_contact === attendees[count2].name) {
+					$("#attendee_checkbox" + (count+1)).prop("checked", true);
+				}
+			}
+		}
+
+		for(var count = 0; count < notif_list.length; count++) {
+			addNotification();
+			var notif = notif_list[count];
+			$("#notification_text" + (count+1)).val(notif.desc);
+			$("#minutes_offset" + (count+1)).val(notif.offset_num);
+			$('input[name=offset_type'+count+']:checked').val(notif.offset_type);
 		}
 	}
 );
