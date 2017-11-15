@@ -26,16 +26,19 @@
 					<input id="end_time_create" type="datetime-local"></br>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-2">
-					Contact Name: <br>
-					<input id="contact_name_create" type="text"></br>
+			<div id="contacts_start"></div>
+			<script id="contact_template" type="text/x-handlebars-template">
+				<div class="row">
+					<div class="col-2">
+						Contact Name: <br>
+						<input id="contact_name_create{{contact_index}}" type="text"></br>
+					</div>
+					<div class="col-2">
+						Contact E-mail: <br>
+						<input id="contact_e-mail_create{{contact_index}}" type="text"></br>
+					</div>
 				</div>
-				<div class="col-2">
-					Contact E-mail: <br>
-					<input id="contact_e-mail_create" type="text"></br>
-				</div>
-			</div>
+			</script>
 			<div class="row">
 				<div class="col-1">
 					<input id="add_new_contact_create" type="button" value="Add new contact">
@@ -70,23 +73,13 @@
 							<input type="radio" name="offset_type{{notification_num}}" value="afterEnd"> After Event Ends
 						</div>
 					</div>
-					<div class="row" id="first_notification_recipient{{notification_num}}">
-						<div class="col-1"></div>
-						<div class="col-2">
-							Contact Name: <br>
-							<input id="contact_name_notification{{notification_num}}-1" type="text"></br>
-						</div>
-						<div class="col-2">
-							Contact E-mail: <br>
-							<input id="contact_email_notification{{notification_num}}-1" type="text"></br>
-						</div>
-					</div>
-					<!--<div class="row">
+					<div id="recipient_start{{notification_num}}"></div>
+					<div class="row">
 						<div class="col-1"></div>
 						<div class="col-1">
-							<input id="add_notification_target{{notification_num}}" type="button" value="Add recipient">
+							<input id="add_recipient{{notification_num}}" type="button" value="Add recipient">
 						</div>
-					</div>-->
+					</div>
 				</form>
 			</script>
 			<script id="notification_recipient" type="text/x-handlebars-template">
@@ -123,7 +116,7 @@
 		<script src="js/handlebars-v4.0.11.js"></script>
 
 		<!-- JavaScript link, TODO: UPDATE THIS LATER -->
-		<script src="CreateEvent_Script.js"></script>
+		<script src="js/CreateEvent_Script.js"></script>
 
 	</body>
 </hmtl>

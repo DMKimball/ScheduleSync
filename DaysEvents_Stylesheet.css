@@ -16,6 +16,10 @@
   padding: 20px;
 }
 
+#logout_todays_events {
+  float: right;
+}
+
 #add_event {
   float: right;
 }
