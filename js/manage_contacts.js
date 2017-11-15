@@ -13,6 +13,7 @@ function genContacts(){
 	grabContacts();
 	//loop through the contacts list to add each one
 	for (var i = 0; i < curr_contacts.length; i++){
+		//num_contacts = i + 1;
 		var temp_name = curr_contacts[i]['name'];
 		var temp_email = curr_contacts[i]['email'];
 		setUpContacts();
@@ -20,7 +21,7 @@ function genContacts(){
 		$('#contact_e-mail_create_manage' + (i + 1)).val(temp_email);
 	}
 }
-function addContact(event) {
+/*function addContact(event) {
 	contacts = [];
 	grabContacts();
 	//grab current contacts
@@ -38,6 +39,26 @@ function addContact(event) {
 	}
 	grabContacts();
 	
+};*/
+
+function addContact(event) {
+	contacts = [];
+	grabContacts();
+	//grab current contacts
+	for(var count = num_contacts; count <= num_contacts; count++) {
+		var name = $('#contact_name_create_manage' + count).val();
+		var email = $('#contact_e-mail_create_manage' + count).val();
+		contacts.push({name: name, email: email});
+	}
+	if (localStorage.getItem('contacts') != null) {
+		var current = curr_contacts.concat(contacts);
+		localStorage.setItem('contacts',JSON.stringify(current));
+	}
+	else {
+		localStorage.setItem('contacts',JSON.stringify(contacts));
+	}
+	genContacts();
+	
 };
 
 function setUpContacts() {
@@ -45,6 +66,7 @@ function setUpContacts() {
 	var source = $("#contact_template_manage").html(); //get html
 	var template = Handlebars.compile(source); //make it usable
 	var parentdiv = $("#contacts_start_manage");
+	//console.log(parentdiv);
 	var htmloutput = template({contact_index:num_contacts});
 	parentdiv.append(htmloutput);
 }
@@ -95,10 +117,26 @@ function deleteIt() {
 
 	//update storage
 	grabContacts();
+	var contact_size = curr_contacts.length;
 	//remove the offending contact
 	curr_contacts.splice(index - 1, 1);
 	//place other contacts back in
 	localStorage.setItem('contacts',JSON.stringify(curr_contacts));
+
+	//fix the dynamic display
+	dePopulate();
+
+	genContacts();
+	
+}
+
+function dePopulate() {
+	var source = $("#contact_template_manage").html(); //get html
+	var template = Handlebars.compile(source); //make it usable
+	var parentdiv = $("#contacts_start_manage");
+	//remove all the boxes
+	parentdiv.splice(-parentdiv.length);
+	num_contacts = 0;
 	
 }
 
@@ -109,7 +147,7 @@ $(document).ready(
 			genContacts();
 		}
 		setUpContacts();
-		$('#add_contact_manage').click(function() {addContact(); setUpContacts();});
+		$('#add_contact_manage').click(addContact);
 		$('.del_in_contacts').click(deleteIt);
 	}
 );
