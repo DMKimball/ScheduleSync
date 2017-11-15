@@ -34,6 +34,7 @@ function setDate(){
 	*/
 	localStorage.setItem('dateShown_t', today);
 	console.log(localStorage.getItem('dateShown_t'));
+	localStorage.setItem('month_date', today);
 
 }
 

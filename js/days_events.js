@@ -149,6 +149,7 @@ function getDateShown_t(){
 function generateToday(){
   var today = new Date();
   localStorage.setItem('dateShown_t', today.toString());
+  localStorage.setItem('month_date', today.toString());
   console.log(today);
   location.href = "TodaysEvents.html"
   //localStorage.setItem('dateShown', today.getMonth()+' '+today.getDate()+', '+today.getFullYear());
@@ -199,5 +200,6 @@ function goToDate(id) {
     d.setDate(d.getDate() + 3);
   }
   localStorage.setItem('dateShown_t', d.toString());
+  localStorage.setItem('month_date', d.toString());
   location.href = "TodaysEvents.html";
 }
