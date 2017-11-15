@@ -7,6 +7,19 @@ function grabContacts() {
 	curr_contacts = JSON.parse(localStorage.getItem('contacts'));
 }
 grabContacts();
+
+//function to run at page load to generate the list of contacts
+function genContacts(){
+	grabContacts();
+	//loop through the contacts list to add each one
+	for (var i = 0; i < curr_contacts.length; i++){
+		var temp_name = curr_contacts[i]['name'];
+		var temp_email = curr_contacts[i]['email'];
+		setUpContacts();
+		$('#contact_name_create_manage' + (i + 1)).val(temp_name);
+		$('#contact_e-mail_create_manage' + (i + 1)).val(temp_email);
+	}
+}
 function addContact(event) {
 	contacts = [];
 	grabContacts();
@@ -92,6 +105,7 @@ function deleteIt() {
 $(document).ready(
 	function() {
 		grabContacts();
+		genContacts();
 		setUpContacts();
 		$('#add_contact_manage').click(function() {addContact(); setUpContacts();});
 		$('.del_in_contacts').click(deleteIt);
