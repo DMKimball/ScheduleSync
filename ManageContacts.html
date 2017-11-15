@@ -62,19 +62,21 @@
 			<div id="contacts_start_manage"></div>
 			<script id="contact_template_manage" type="text/x-handlebars-template">
 				<div class="row">
-					<div class="col-2">
-						Contact Name: <br>
-						<input id="contact_name_create_manage{{contact_index}}" type="text"></br>
-					</div>
-					<div class="col-2">
-						Contact E-mail: <br>
-						<input id="contact_e-mail_create_manage{{contact_index}}" type="text"></br>
-					</div>
-					<div class="col-1">
-						<br><a href="EditContact.html"><input type="button" value="Edit"></a>
-					</div>
-					<div class="col-1">
-						<br><input class="del_in_contacts" id="del_els_in_contacts{{contact_index}}" type="button" value="Delete">
+					<div class="{{contact_index}}">
+						<div class="col-2">
+							Contact Name: <br>
+							<input id="contact_name_create_manage{{contact_index}}" type="text"></br>
+						</div>
+						<div class="col-2">
+							Contact E-mail: <br>
+							<input id="contact_e-mail_create_manage{{contact_index}}" type="text"></br>
+						</div>
+						<div class="col-1">
+							<br><a href="EditContact.html"><input type="button" value="Edit"></a>
+						</div>
+						<div class="col-1">
+							<br><input class="del_in_contacts" id="del_els_in_contacts{{contact_index}}" type="button" value="Delete">
+						</div>
 					</div>
 				</div>
 			</script>
