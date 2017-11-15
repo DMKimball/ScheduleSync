@@ -84,7 +84,7 @@ function deleteIt() {
 	//grab the id of the calling object
 	var ID = $(this).attr('id');
 	console.log(ID);
-	var ind = ID.slice(ID.length - 1, ID.length);
+	var ind = ID.slice(19);
 	console.log(ind);
 	var index = parseInt(ind);
 	//grab the email to delete
@@ -105,7 +105,9 @@ function deleteIt() {
 $(document).ready(
 	function() {
 		grabContacts();
-		genContacts();
+		if (localStorage.getItem('contacts') != null){
+			genContacts();
+		}
 		setUpContacts();
 		$('#add_contact_manage').click(function() {addContact(); setUpContacts();});
 		$('.del_in_contacts').click(deleteIt);
