@@ -5,10 +5,12 @@ function logout() {
 }
 
 $(document).ready(function() {
-  $('#logout_main_calendar').click(logout);
-  $('#prev_month').click(changeMonth);
-  $("#main_calendar").on("click", "td", changeDay);
   var date = new Date(localStorage.getItem('month_date'));
+  generateMonthYear(date);
+  $('#logout_main_calendar').click(logout);
+  $('#prev_month').click(changeMonthPrev);
+  $('#next_month').click(changeMonthNext);
+  $("#main_calendar").on("click", "td", changeDay);
   generateDays(date);
 });
 
@@ -46,28 +48,66 @@ function generateDays(date) {
 
 
 
-function changeMonth(date){
-
+function changeMonthPrev(){
   var date = new Date(localStorage.getItem('month_date'));
   currentMonth = date.getMonth();
   currentYear = date.getFullYear();
   currentMonth--;
+  console.log(currentMonth);
   if(currentMonth < 0) {
     currentMonth= 11;
+    currentYear--;
   }
   date.setMonth(currentMonth);
+  date.setYear(currentYear);
+  date.setDate(1);
   localStorage.setItem('month_date', date.toString());
   $('.element').remove();
   $('.day_rows').remove();
+  generateMonthYear(date);
+  generateDays(date);
+}
+
+function changeMonthNext(){
+  var date = new Date(localStorage.getItem('month_date'));
+  currentMonth = date.getMonth();
+  currentYear = date.getFullYear();
+  currentMonth++;
+  console.log(currentMonth);
+  if(currentMonth > 11) {
+    currentMonth= 0;
+    currentYear++;
+  }
+  date.setMonth(currentMonth);
+  date.setYear(currentYear);
+  date.setDate(1);
+  localStorage.setItem('month_date', date.toString());
+  $('.element').remove();
+  $('.day_rows').remove();
+  generateMonthYear(date);
   generateDays(date);
 }
 
 function changeDay(event){
   var dateNum = $(this).text();
-  if(!isNaN(dateNum)) {
+  if(!isNaN(dateNum) && dateNum != 0) {
     var date = new Date(localStorage.getItem('month_date'));
     date.setDate(dateNum);
     localStorage.setItem('dateShown_t',date.toString());
     location.href = "TodaysEvents.html";
   }
+}
+
+function generateMonthYear(date){
+  var monthValues =
+                    [
+                    'January', 'February',
+                    'March', 'April',
+                    'May', 'June',
+                    'July', 'August',
+                    'September', 'October',
+                    'November', 'December',
+                  ];
+  var monthYear =  "<b>"+monthValues[date.getMonth()]+' '+date.getFullYear()+"</b>";
+  document.getElementById('month_year').innerHTML = monthYear;
 }

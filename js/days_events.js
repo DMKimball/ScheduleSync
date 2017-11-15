@@ -21,6 +21,8 @@ var monthValues_short =
 
 $(document).ready(function() {
   var name = localStorage.getItem('username');
+  var d = new Date(localStorage.getItem('dateShown_t'))
+  localStorage.setItem('month_date', d.toString());
   console.log(name);
   generateDateButtons();
   generateEvents();
@@ -162,10 +164,8 @@ function eventClicked(eventName) {
 
 function generateDateButtons(){
   d = getDateShown_t();
-  console.log(d);
   document.getElementById('this_day').value = monthValues_short[d.getMonth()]+" "+d.getDate();
   d.setDate(d.getDate() - 3);
-  console.log(d);
   document.getElementById('day1').value = monthValues_short[d.getMonth()]+" "+d.getDate();
   d.setDate(d.getDate() + 1);
   document.getElementById('day2').value = monthValues_short[d.getMonth()]+" "+d.getDate();
