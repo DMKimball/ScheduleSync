@@ -23,9 +23,14 @@
 
 .exit {
 	border-left:solid 1px #C0C0C0;
+	border-right:solid 1px #C0C0C0;
 	background-color: #C0C0C0;
 }
 
 .month {
+	background-color: #C0C0C0;
+}
+
+.next_prev {
 	background-color: #C0C0C0;
 }

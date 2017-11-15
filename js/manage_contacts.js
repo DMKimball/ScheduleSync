@@ -7,6 +7,19 @@ function grabContacts() {
 	curr_contacts = JSON.parse(localStorage.getItem('contacts'));
 }
 grabContacts();
+
+//function to run at page load to generate the list of contacts
+function genContacts(){
+	grabContacts();
+	//loop through the contacts list to add each one
+	for (var i = 0; i < curr_contacts.length; i++){
+		var temp_name = curr_contacts[i]['name'];
+		var temp_email = curr_contacts[i]['email'];
+		setUpContacts();
+		$('#contact_name_create_manage' + (i + 1)).val(temp_name);
+		$('#contact_e-mail_create_manage' + (i + 1)).val(temp_email);
+	}
+}
 function addContact(event) {
 	contacts = [];
 	grabContacts();
@@ -23,7 +36,7 @@ function addContact(event) {
 	else {
 		localStorage.setItem('contacts',JSON.stringify(contacts));
 	}
-	
+	grabContacts();
 	
 };
 
@@ -36,12 +49,67 @@ function setUpContacts() {
 	parentdiv.append(htmloutput);
 }
 
+function findContact() {
+	//find out which contact to delete
+	console.log('FINDFINDFINDFINDFIND');
+	for(var count = 1; count < num_contacts; count++) {
+		del_name = $('#contact_name_create_manage'+count).val();
+		//console.log(del_name);
+		$('#del_els_in_contacts' + count).click(deleteContact(del_name, count));
+	}
+}
+
+function deleteContact(del_name, index) {
+	console.log('DELDELDELDELDELDELDEL');
+	console.log(del_name);
+	grabContacts();
+	/*for (var count = 0; count < curr_contacts.length; count++){
+		console.log(count);
+		console.log(num_contacts);
+		if (curr_contacts[count]['name'] == del_name) {
+			//delete the element
+			curr_contacts.splice(count, 1);
+			//update local storage
+			localStorage.setItem('contacts',JSON.stringify(curr_contacts));
+			$('#contact_name_create_manage' + count).val('');
+			$('#contact_e-mail_create_manage' + count).val('');
+			break;
+		}
+	}*/
+
+	grabContacts();
+}
+
+function deleteIt() {
+	//grab the id of the calling object
+	var ID = $(this).attr('id');
+	console.log(ID);
+	var ind = ID.slice(19);
+	console.log(ind);
+	var index = parseInt(ind);
+	//grab the email to delete
+	var email = $('#contact_e-mail_create_manage'+ind).val();
+	var name = $('#contact_name_create_manage'+ind).val();
+	$('#contact_e-mail_create_manage'+ind).val('');
+	$('#contact_name_create_manage'+ind).val('');
+
+	//update storage
+	grabContacts();
+	//remove the offending contact
+	curr_contacts.splice(index - 1, 1);
+	//place other contacts back in
+	localStorage.setItem('contacts',JSON.stringify(curr_contacts));
+	
+}
+
 $(document).ready(
 	function() {
 		grabContacts();
+		if (localStorage.getItem('contacts') != null){
+			genContacts();
+		}
 		setUpContacts();
 		$('#add_contact_manage').click(function() {addContact(); setUpContacts();});
-		
-
+		$('.del_in_contacts').click(deleteIt);
 	}
 );
