@@ -21,7 +21,7 @@ function createEvent(event) {
 	//grab current array
 	var raw_events_str = localStorage.getItem('event');
 	var current_events = [];
-	if (raw_event_str != null){
+	if (raw_events_str != null){
 		current_events = JSON.parse(raw_events_str);
 	}
 
@@ -42,6 +42,7 @@ function createEvent(event) {
 
 	var eventToMake = {name: namePrime, email: email2, start: start, end: end, contacts: attendees, notifications: notification_list};
 	current_events.push(eventToMake);
+	console.log(JSON.stringify(current_events));
 	localStorage.setItem('event',JSON.stringify(current_events));
 };
 
