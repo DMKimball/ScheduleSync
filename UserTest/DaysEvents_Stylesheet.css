@@ -1,0 +1,39 @@
+#day_date {
+  font-size: 200%;
+  text-align: center;
+}
+
+#calendar {
+  width: 100%;
+}
+
+#event_table {
+  width: 400px;
+  margin: auto;
+}
+
+#add_event_button {
+  padding: 20px;
+}
+
+#logout_todays_events {
+  float: right;
+}
+
+#add_event {
+  float: right;
+}
+
+.day {
+	/* properties to apply to this class*/
+  width:90px;
+  height: 50px;
+
+}
+
+.event_button {
+	/* properties to apply to this class*/
+  width: 100%;
+  align: center;
+
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Day's Events</title> <!-- Page title, TODO: CHANGE THIS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+		<link href="DaysEvents_Stylesheet.css" rel="stylesheet" /> <!-- CSS link, TODO: CHANGE THIS -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	</head>
+
+	<body>
+		<div class="container-fluid">
+
+			<h1 align="center">Day's Events</h1>
+			<table border="2px"align="center">
+				<tr><td><a href="Main_Calendar.html"><input id="calendar" type="button" value="Calendar"></input></a></td></tr>
+				<tr> <td>
+					<table id="day_buttons" border="1px">
+						<tr>
+							<td><input id="day1" class="day" type="button" value="Mth dd" onclick="goToDate(this.id)"></input></td>
+							<td><input id="day2" class="day" type="button" value="Mth dd" onclick="goToDate(this.id)"></input></td>
+							<td><input id="day3" class="day" type="button" value="Mth dd" onclick="goToDate(this.id)"></input></td>
+							<td><input id="this_day" class="day" type="button" value="Mth dd"></input></td>
+							<td><input id="day5" class="day" type="button" value="Mth dd" onclick="goToDate(this.id)"></input></td>
+							<td><input id="day6" class="day" type="button" value="Mth dd" onclick="goToDate(this.id)"></input></td>
+							<td><input id="day7" class="day" type="button" value="Mth dd" onclick="goToDate(this.id)"></input></td>
+							<td><input id="today_button" class="day" type="button" value="Today" onclick="generateToday()"></input></td>
+						</tr>
+					</table>
+					<table align="center">
+						<tr><td id="day_date"></td>
+						</tr>
+						<tr>
+							<td>
+								<table id="event_table">
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td></tr>
+
+				<tr><td><a href="ManageContacts.html"><input type="button" value="Contacts"></input></a><a href="ManageTags.html"></input></a><input id="logout_todays_events" type="button" value="Logout"></input><a href="CreateEvent.html"><input id="add_event" type="button" value="Add New Event"></input></a></td></tr>
+			</table>
+
+		</div>
+		<!-- Bootstrap and jQuery script links, DO NOT CHANGE OR REMOVE THESE -->
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+		<script src="js/handlebars-v4.0.11.js"></script>
+		<script src="js/days_events.js"></script>
+		<!-- JavaScript link, TODO: CHANGE THIS -->
+	</body>
+</hmtl>
