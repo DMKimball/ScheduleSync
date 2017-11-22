@@ -47,8 +47,7 @@
 				</div>
 			</div>
 			<script id="notification_template" type="text/x-handlebars-template">
-				<form>
-				<div class="container light-blue-box">
+				<div class="container light-blue-box" id="notification{{notification_num}}">
 					<div class="row">
 						<div class="col-12">
 							<strong>Notification Message:</strong><br>
@@ -62,10 +61,10 @@
 					</div>
 					<div class="row">
 						<div class="col-12">
-							<input type="radio" name="offset_type{{notification_num}}" value="beforeStart" checked> Before Event Starts
-							<input type="radio" name="offset_type{{notification_num}}" value="afterStart"> After Event Starts
-							<input type="radio" name="offset_type{{notification_num}}" value="beforeEnd"> Before Event Ends
-							<input type="radio" name="offset_type{{notification_num}}" value="afterEnd"> After Event Ends
+							<input type="radio" name="offset_type{{notification_num}}" value="beforeStart" id="beforeStart{{notification_num}}" checked> Before Event Starts
+							<input type="radio" name="offset_type{{notification_num}}" value="afterStart" id="afterStart{{notification_num}}"> After Event Starts
+							<input type="radio" name="offset_type{{notification_num}}" value="beforeEnd" id="beforeEnd{{notification_num}}"> Before Event Ends
+							<input type="radio" name="offset_type{{notification_num}}" value="afterEnd" id="afterEnd{{notification_num}}"> After Event Ends
 						</div>
 					</div>
 					<div class="row">
@@ -80,7 +79,6 @@
                         </div>
                     </div>
 				</div>
-				</form>
 			</script>
 			<script id="notification_recipient" type="text/x-handlebars-template">
 			<div class="row">

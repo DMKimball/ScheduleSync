@@ -1,20 +1,32 @@
 // header
-var notification_data = {
-	'notification_num' : 0,
-	'notification_attendee_nums' : []
-};
+var notification_num = 0;
 
 //variable to store new attendees to events
 var attendees = [];
 var num_attendees = 0;
 
 function clearFields(event) {
-	$('#event_name_create').val('');
-	$('#start_time_create').val('');
-	$('#end_time_create').val('');
-	$('#attendee_name_create').val('');
-	$('#attendee_e-mail_create').val('');
-	$('#event_name_create').val('');
+    $('#event_name_create').val('');
+
+    var shownDate = new Date(localStorage.getItem("dateShown_t"));
+    var defaultStart = shownDate.getFullYear() + "-" + (shownDate.getMonth() + 1) + "-" + shownDate.getDate() + "T" + shownDate.getHours() + ":00";
+    var defaultEnd = shownDate.getFullYear() + "-" + (shownDate.getMonth() + 1) + "-" + shownDate.getDate() + "T" + shownDate.getHours() + ":30";
+
+    $('#start_time_create').val(defaultStart);
+    $('#end_time_create').val(defaultEnd);
+
+    $('#notifications_start').empty();
+
+    for (var count = 1; count <= num_attendees; count++) {
+        if ($('#attendee_checkbox' + count).attr('value') === localStorage.getItem("username")) {
+            $('#attendee_checkbox' + count).prop('checked', true);
+        }
+        else {
+            $('#attendee_checkbox' + count).prop('checked', false);
+        }
+    }
+
+    attendees = [{ name: localStorage.getItem("username"), email: localStorage.getItem("email") }];
 }
 
 function createEvent(event) {
@@ -36,7 +48,7 @@ function createEvent(event) {
 	var owner = localStorage.getItem('username');
 
 	var notification_list = [];
-	for(var count = 1; count <= notification_data.notification_num; count++) {
+	for(var count = 1; count <= notification_num; count++) {
 		var desc = $('#notification_text' + count).val();
 		var offset_num = $('#minutes_offset' + count).val();
 		var offset_type = $('input[name=offset_type'+count+']:checked').val();
@@ -53,16 +65,16 @@ function createEvent(event) {
 };
 
 function updateRecipientLists() {
-	console.log("Updating Recipient Lists...");
-	for(var count = 1; count <= notification_data.notification_num; count++) {
-		console.log("Updating for Notification " + count);
+	//console.log("Updating Recipient Lists...");
+	for(var count = 1; count <= notification_num; count++) {
+		//console.log("Updating for Notification " + count);
 		var recipient_list_element = $("#recipient_start" + count);
 		recipient_list_element.empty();
 
 		var source = $("#notification_recipient").html(); //get html
 		var template = Handlebars.compile(source); //make it usable
 		for(var count2 = 0; count2 < attendees.length; count2++) {
-			console.log("Adding recipient " + (count2+1));
+			//console.log("Adding recipient " + (count2+1));
 			var recipient_name = attendees[count2].name;
 			var text_name = recipient_name;
 			if(recipient_name === localStorage.getItem("username")) text_name = text_name + " (You)";
@@ -92,7 +104,7 @@ function updateAttendees(event) {
 			}
 		}
 		console.log({name:attendee_name, email:attendee_email});
-		attendees.push({name:attendee_name, email:attendee_email})
+        attendees.push({ name: attendee_name, email: attendee_email });
 	}
 	else {
 		for(var count = 0; count < attendees.length; count++) { //find contact to be removed
@@ -117,25 +129,31 @@ function addAttendee(contact_data) {
 };
 
 function deleteNotification(event) {
+    var notif_index = parseInt($(this).attr('id').substring(19));
 
-}
+    for (var count = notif_index; count < notification_num; count++) {
+        $('#notification_text' + count).val($('#notification_text' + (count + 1)).val());
+        $('#minutes_offset' + count).val($('#minutes_offset' + (count + 1)).val());
+        $('#' + $('input[name=offset_type' + (count + 1) + ']:checked').val() + count).prop('checked', true);
+    }
+
+    $('#notification' + notification_num).remove();
+    notification_num--;
+};
 
 function addNotification(event) {
-	notification_data.notification_num++;
-	notification_data.notification_attendee_nums.push(0);
+	notification_num++;
 	var source = $("#notification_template").html(); //get html
 	var template = Handlebars.compile(source); //make it usable
 	var parentDiv = $("#notifications_start");
-	var htmlOutput = template(notification_data);
+    var htmlOutput = template({ notification_num: notification_num });
 	parentDiv.append(htmlOutput);
-    $("#add_recipient" + notification_data.notification_num).click(addRecipient);
-    $("#delete_notification" + notification_data.notification_num).click(deleteNotification);
+    $("#delete_notification" + notification_num).click(deleteNotification);
 	updateRecipientLists();
 };
 
 function addRecipient(event) {
 	var notif_index = parseInt($(this).attr('id').substring(13));
-	var recipient_index = ++notification_data.notification_attendee_nums[notif_index-1];
 
 	var source = $("#notification_recipient").html(); //get html
 	var template = Handlebars.compile(source); //make it usable
