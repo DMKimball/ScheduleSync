@@ -27,7 +27,12 @@ function createEvent(event) {
 
 	var namePrime = $('#event_name_create').val();
 	var start = $('#start_time_create').val();
-	var end = $('#end_time_create').val();
+    var end = $('#end_time_create').val();
+    if (!(start && end)) {
+        $('#warning_text').show();
+        $('#time_row').css('background-color', 'red');
+        return;
+    }
 	var owner = localStorage.getItem('username');
 
 	var notification_list = [];
@@ -42,7 +47,9 @@ function createEvent(event) {
 	var eventToMake = {name: namePrime, start: start, end: end, contacts: attendees, notifications: notification_list};
 	current_events.push(eventToMake);
 	console.log(JSON.stringify(current_events));
-	localStorage.setItem('event',JSON.stringify(current_events));
+    localStorage.setItem('event', JSON.stringify(current_events));
+
+    window.location.href = "TodaysEvents.html";
 };
 
 function updateRecipientLists() {
@@ -136,11 +143,18 @@ $(document).ready(
 	function() {
 		$('#add_notification').click(addNotification);
 		$('#clear_create').click(clearFields);
-		$('#create_create').click(createEvent);
+        $('#create_create').click(createEvent);
 
-		attendees.push({name:localStorage.getItem("username"), email:localStorage.getItem("email")})
+        var shownDate = new Date(localStorage.getItem("dateShown_t"));
+        var defaultStart = shownDate.getFullYear() + "-" + (shownDate.getMonth()+1) + "-" + shownDate.getDate() + "T" + shownDate.getHours() + ":00";
+        var defaultEnd = shownDate.getFullYear() + "-" + (shownDate.getMonth()+1) + "-" + shownDate.getDate() + "T" + shownDate.getHours() + ":30";
 
-		addNotification();
+        $('#start_time_create').val(defaultStart);
+        $('#end_time_create').val(defaultEnd);
+
+        $('#warning_text').hide();
+
+        attendees.push({ name: localStorage.getItem("username"), email: localStorage.getItem("email") });
 
 		var contacts_list = JSON.parse(localStorage.getItem("contacts"));
 		var current_user = localStorage.getItem("username");

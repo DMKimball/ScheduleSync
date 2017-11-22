@@ -2,14 +2,23 @@
 
 var num_contacts = 0;
 var curr_contacts = []
+
+function contactComp(a, b) {
+    if (a.name === b.name) return 0;
+    if (a.name < b.name) return -1;
+    else return 1;
+}
+
 //function to grab the contacts at page load time
 function grabContacts() {
 	var raw_contacts_str = localStorage.getItem('contacts');
-	if(raw_contacts_str != null) curr_contacts = JSON.parse(raw_contacts_str);
+    if (raw_contacts_str != null) curr_contacts = JSON.parse(raw_contacts_str);
+    curr_contacts.sort(contactComp);
 }
 
 //update localStorage contacts list
 function pushContacts() {
+    curr_contacts.sort(contactComp);
 	localStorage.setItem('contacts', JSON.stringify(curr_contacts));
 }
 

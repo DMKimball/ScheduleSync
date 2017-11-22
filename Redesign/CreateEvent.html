@@ -15,17 +15,23 @@
 					<strong>Event Name:</strong><br>
 					<input id="event_name_create" type="text" name="eventname"><br>
 				</div>
-				<div class="col-2">
-					<strong>Event Start Time:</strong> <br>
-					<input id="start_time_create" type="datetime-local"><br>
-				</div>
 			</div>
-			<div class="row">
-				<div class="col-2">
+			<div class="row" id="time_row">
+			    <div class="col-3">
+				    <strong>Event Start Time:</strong> <br>
+				    <input id="start_time_create" type="datetime-local"><br>
+			    </div>
+				<div class="col-3">
 					<strong>Event End Time:</strong> <br>
 					<input id="end_time_create" type="datetime-local"></br>
 				</div>
+                <div class="col-6" id="warning_text">
+                    <br>Please enter a valid start time and end time!
+                </div>
 			</div>
+            <div class="row">
+                <div class="col-6"><strong>Attendees:</strong></div>
+            </div>
 			<div class="row">
 				<div class="col-6" id="attendees_start">
 				</div>
@@ -69,6 +75,11 @@
 						</div>
 					</div>
 					<div id="recipient_start{{notification_num}}"></div>
+                    <div class="row">
+                        <div class="col-12">
+                            <input id="delete_notification{{notification_num}}" type="button" value="Delete Notification">
+                        </div>
+                    </div>
 				</div>
 				</form>
 			</script>
@@ -89,7 +100,7 @@
 					<a href="TodaysEvents.html"><input type="button" value="Cancel"></a>
 				</div>
 				<div class="col-1">
-					<a href="TodaysEvents.html"><input id="create_create" type="button" value="Create"></a>
+					<input id="create_create" type="button" value="Create">
 				</div>
 			</div>
 

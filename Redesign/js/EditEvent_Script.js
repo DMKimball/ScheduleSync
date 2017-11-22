@@ -66,7 +66,12 @@ function editEvent(event) {
 
 	var namePrime = $('#event_name_edit').val();
 	var start = $('#start_time_edit').val();
-	var end = $('#end_time_edit').val();
+    var end = $('#end_time_edit').val();
+    if (!(start && end)) {
+        $('#warning_text').show();
+        $('#time_row').css('background-color', 'red');
+        return;
+    }
 	var owner = localStorage.getItem('username');
 
 	var notification_list = [];
@@ -82,13 +87,17 @@ function editEvent(event) {
 	current_events.splice(eventIndex, 1);
 	current_events.push(eventToMake);
 	console.log(JSON.stringify(current_events));
-	localStorage.setItem('event',JSON.stringify(current_events));
+    localStorage.setItem('event', JSON.stringify(current_events));
+
+    window.location.href = "TodaysEvents.html";
 };
 
 function deleteEvent(event) {
 	var current_events = JSON.parse(localStorage.getItem("event"));
 	current_events.splice(eventIndex, 1);
-	localStorage.setItem('event',JSON.stringify(current_events));
+    localStorage.setItem('event', JSON.stringify(current_events));
+
+    window.location.href = "TodaysEvents.html";
 }
 
 function updateRecipientLists() {
@@ -182,7 +191,9 @@ $(document).ready(
 		$('#add_notification').click(addNotification);
 		$('#clear_edit').click(resetFields);
 		$('#edit_confirm').click(editEvent);
-		$('#edit_delete').click(deleteEvent);
+        $('#edit_delete').click(deleteEvent);
+
+        $('#warning_text').hide();
 
 		var all_events = JSON.parse(localStorage.getItem('event'));
 		edittedEvent = localStorage.getItem('eventEdit');

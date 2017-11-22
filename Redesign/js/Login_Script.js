@@ -19,6 +19,12 @@ $(document).ready(function() {
 	});
 });
 
+function contactComp(a, b) {
+    if (a.name === b.name) return 0;
+    if (a.name < b.name) return -1;
+    else return 1;
+}
+
 function setDate(){
 	var today = new Date().toString();
 	console.log(today);
@@ -51,7 +57,9 @@ function loadFakeEvents () {
 }
 
 function loadFakeContacts() {
-	if(localStorage.getItem('contacts') == null) {
+    if (localStorage.getItem('contacts') == null) {
+
+        fake_contacts.sort(contactComp);
 		localStorage.setItem('contacts', JSON.stringify(fake_contacts));
 	}
 }

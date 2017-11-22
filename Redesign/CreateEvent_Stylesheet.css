@@ -1,11 +1,15 @@
 .row {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .blue-box {
-  background-color: #4286f4;
+    background-color: #4286f4;
 }
 
 .light-blue-box {
-  background-color: #62a6f4;
+    background-color: #62a6f4;
+}
+
+#warning_text {
+    color: white;
 }
