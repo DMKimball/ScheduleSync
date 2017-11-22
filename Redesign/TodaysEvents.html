@@ -11,8 +11,14 @@
 		<div class="container-fluid">
 
 			<h1 align="center">Day's Events</h1>
+			<table border="2px" align="center">
+
+			</table>
 			<table border="2px"align="center">
-				<tr><td><a href="Main_Calendar.html"><input id="calendar" type="button" value="Calendar"></input></a></td></tr>
+				<tr>
+					<td><input id="today_button" type="button" value="Today" onclick="generateToday()"></input>
+					<a href="Main_Calendar.html"><input id="calendar" type="button" value="Calendar"></input></a></td>
+				</tr>
 				<tr> <td>
 					<table id="day_buttons" border="1px">
 						<tr>
@@ -23,7 +29,6 @@
 							<td><button id="day5" class="day" onclick="goToDate(this.id)"></button></td>
 							<td><button id="day6" class="day" onclick="goToDate(this.id)"></button></td>
 							<td><button id="day7" class="day" onclick="goToDate(this.id)"></button></td>
-							<td><input id="today_button" class="day" type="button" value="Today" onclick="generateToday()"></input></td>
 						</tr>
 					</table>
 					<table align="center">
