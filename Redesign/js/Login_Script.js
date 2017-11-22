@@ -3,6 +3,11 @@ $(document).ready(function() {
 	setDate();
 	//call function to load fake events if no events in system
 	function login(event) {
+		//grab the current contacts list - list of JSON objects
+		var cont = JSON.parse(localStorage.getItem('contacts'));
+		cont.unshift({name:$('#username_field').val(),email:$('#email_field').val()});
+		//restore contacts with user at the top
+		localStorage.setItem('contacts', JSON.stringify(cont));
 		localStorage.setItem('username', $('#username_field').val());
 		localStorage.setItem('email', $('#email_field').val());
 		window.location.href = "TodaysEvents.html";

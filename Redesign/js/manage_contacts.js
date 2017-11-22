@@ -50,6 +50,7 @@ function updateContact(event) {
 	var temp_email = $('#contact_e-mail_create_manage' + index).val();
 	curr_contacts[index-1] = {name:temp_name, email:temp_email};
 	pushContacts();
+	window.alert('you have added-----name: ' + temp_name + ' email: ' + temp_email);
 };
 
 function addContactField() {
