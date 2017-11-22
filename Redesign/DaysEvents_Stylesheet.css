@@ -4,7 +4,7 @@
 }
 
 #calendar {
-  width: 100%;
+  float: right;
 }
 
 #event_table {

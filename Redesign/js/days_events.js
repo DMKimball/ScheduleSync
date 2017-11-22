@@ -83,20 +83,13 @@ function generateEvents() {
         var endHour = endDate.getHours();
         var endMin = endDate.getMinutes();
 
-        //Set bool to check if event should be displayed
-        var d = getDateShown_t();
-        var dayShown =  d.getMonth()+' '+d.getDate()+', '+d.getFullYear();
-        var startsToday = startDate.getMonth()+' '+startDate.getDate()+', '+startDate.getFullYear() == dayShown;
-        var endsToday = endDate.getMonth()+' '+endDate.getDate()+', '+endDate.getFullYear() == dayShown;
-        var checkYear = d.getFullYear() >= startDate.getFullYear() && d.getFullYear() <= endDate.getFullYear();
-        console.log(checkYear);
-        var checkMonth = d.getMonth() >= startDate.getMonth() && d.getMonth() <= endDate.getMonth();
-        console.log(checkMonth);
-        var checkDay = d.getDate() >= startDate.getDate() && d.getDate() <= endDate.getDate();
-        console.log(checkDay);
-
+        //d1 and d2 will be used to check if day should be displayed
+        var d1 = getDateShown_t();
+        var d2 = getDateShown_t();
+        d1.setHours(23); d1.setMinutes(59); d1.setSeconds(59);
+        d2.setHours(0); d2.setMinutes(0); d2.setMinutes(0);
         //Display event if it starts or ends on day shown.
-        if(checkYear && checkMonth && checkDay) {
+        if(d1 >= startDate && d2 <= endDate) {
           //Date formating
           if(startHour >= 13) {
             startTime = (startHour-12).toString()+':';
@@ -172,19 +165,26 @@ function eventClicked(eventName) {
 
 function generateDateButtons(){
   d = getDateShown_t();
-  document.getElementById('this_day').value = monthValues_short[d.getMonth()]+" "+d.getDate();
+  var day = dayValues[d.getDay()].substring(0,3);
+  document.getElementById('this_day').innerHTML = monthValues_short[d.getMonth()]+" "+d.getDate()+"<br/>"+day;
   d.setDate(d.getDate() - 3);
-  document.getElementById('day1').value = monthValues_short[d.getMonth()]+" "+d.getDate();
+  day = dayValues[d.getDay()].substring(0,3);
+  document.getElementById('day1').innerHTML = monthValues_short[d.getMonth()]+" "+d.getDate()+"<br/>"+day;
   d.setDate(d.getDate() + 1);
-  document.getElementById('day2').value = monthValues_short[d.getMonth()]+" "+d.getDate();
+  day = dayValues[d.getDay()].substring(0,3);
+  document.getElementById('day2').innerHTML = monthValues_short[d.getMonth()]+" "+d.getDate()+"<br/>"+day;
   d.setDate(d.getDate() + 1);
-  document.getElementById('day3').value = monthValues_short[d.getMonth()]+" "+d.getDate();
+  day = dayValues[d.getDay()].substring(0,3);
+  document.getElementById('day3').innerHTML = monthValues_short[d.getMonth()]+" "+d.getDate()+"<br/>"+day;
   d.setDate(d.getDate() + 2);
-  document.getElementById('day5').value = monthValues_short[d.getMonth()]+" "+d.getDate();
+  day = dayValues[d.getDay()].substring(0,3);
+  document.getElementById('day5').innerHTML = monthValues_short[d.getMonth()]+" "+d.getDate()+"<br/>"+day;
   d.setDate(d.getDate() + 1);
-  document.getElementById('day6').value = monthValues_short[d.getMonth()]+" "+d.getDate();
+  day = dayValues[d.getDay()].substring(0,3);
+  document.getElementById('day6').innerHTML = monthValues_short[d.getMonth()]+" "+d.getDate()+"<br/>"+day;
   d.setDate(d.getDate() + 1);
-  document.getElementById('day7').value = monthValues_short[d.getMonth()]+" "+d.getDate();
+  day = dayValues[d.getDay()].substring(0,3);
+  document.getElementById('day7').innerHTML = monthValues_short[d.getMonth()]+" "+d.getDate()+"<br/>"+day;
 }
 
 function goToDate(id) {
