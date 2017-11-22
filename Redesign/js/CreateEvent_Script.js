@@ -116,6 +116,10 @@ function addAttendee(contact_data) {
 	$("#attendee_checkbox" + num_attendees).change(updateAttendees);
 };
 
+function deleteNotification(event) {
+
+}
+
 function addNotification(event) {
 	notification_data.notification_num++;
 	notification_data.notification_attendee_nums.push(0);
@@ -124,7 +128,8 @@ function addNotification(event) {
 	var parentDiv = $("#notifications_start");
 	var htmlOutput = template(notification_data);
 	parentDiv.append(htmlOutput);
-	$("#add_recipient" + notification_data.notification_num).click(addRecipient);
+    $("#add_recipient" + notification_data.notification_num).click(addRecipient);
+    $("#delete_notification" + notification_data.notification_num).click(deleteNotification);
 	updateRecipientLists();
 };
 
