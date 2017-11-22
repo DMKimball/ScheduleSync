@@ -7,7 +7,7 @@ $(document).ready(function() {
 		localStorage.setItem('email', $('#email_field').val());
 		window.location.href = "TodaysEvents.html";
 	}
-	loadFakeEvents();
+	//loadFakeEvents();
 	loadFakeContacts();
 
 	$('#loginbutton').click(login);

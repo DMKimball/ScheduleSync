@@ -161,7 +161,7 @@ function deleteNotification(event) {
     for (var count = notif_index; count < notification_num; count++) {
         $('#notification_text' + count).val($('#notification_text' + (count + 1)).val());
         $('#minutes_offset' + count).val($('#minutes_offset' + (count + 1)).val());
-        $('input[name=offset_type' + count + ']:checked').val($('input[name=offset_type' + (count + 1) + ']:checked').val());
+        $('#' + $('input[name=offset_type' + (count + 1) + ']:checked').val() + count).prop('checked', true);
     }
 
     $('#notification' + notification_num).remove();
