@@ -37,7 +37,7 @@ function genContacts(){
 
 function addContact(event) {
 	addContactField();
-	curr_contacts.push({name:"", email:""});
+	curr_contacts.push({name:"", email:"", user:"0"});
 	pushContacts();
 };
 
@@ -48,9 +48,9 @@ function updateContact(event) {
 
 	var temp_name = $('#contact_name_create_manage' + index).val();
 	var temp_email = $('#contact_e-mail_create_manage' + index).val();
-	curr_contacts[index-1] = {name:temp_name, email:temp_email};
+	curr_contacts[index-1] = {name:temp_name, email:temp_email, user:"0"};
 	pushContacts();
-	window.alert('you have added-----name: ' + temp_name + ' email: ' + temp_email);
+	window.alert('you have Added or Updated to-----name: ' + temp_name + ' email: ' + temp_email);
 };
 
 function addContactField() {
@@ -70,6 +70,11 @@ function deleteContact() {
 	var button_id = $(this).attr('id');
 	var index_str = button_id.substring(19);
 	var index = parseInt(index_str);
+
+	if (curr_contacts[index-1]['user'] == '1') {
+		window.alert("Warning, can not delete the current user!!!");
+		return;
+	}
 
 	curr_contacts.splice(index-1, 1);
 	pushContacts();

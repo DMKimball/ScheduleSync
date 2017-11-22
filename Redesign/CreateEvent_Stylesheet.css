@@ -13,3 +13,9 @@
 #warning_text {
     color: white;
 }
+
+.buffer{
+	width:25px;
+	height:auto;
+	display:inline-block;
+}
