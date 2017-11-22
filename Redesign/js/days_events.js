@@ -172,19 +172,26 @@ function eventClicked(eventName) {
 
 function generateDateButtons(){
   d = getDateShown_t();
-  document.getElementById('this_day').value = monthValues_short[d.getMonth()]+" "+d.getDate();
+  var day = dayValues[d.getDay()].substring(0,3);
+  document.getElementById('this_day').innerHTML = monthValues_short[d.getMonth()]+" "+d.getDate()+"<br/>"+day;
   d.setDate(d.getDate() - 3);
-  document.getElementById('day1').value = monthValues_short[d.getMonth()]+" "+d.getDate();
+  day = dayValues[d.getDay()].substring(0,3);
+  document.getElementById('day1').innerHTML = monthValues_short[d.getMonth()]+" "+d.getDate()+"<br/>"+day;
   d.setDate(d.getDate() + 1);
-  document.getElementById('day2').value = monthValues_short[d.getMonth()]+" "+d.getDate();
+  day = dayValues[d.getDay()].substring(0,3);
+  document.getElementById('day2').innerHTML = monthValues_short[d.getMonth()]+" "+d.getDate()+"<br/>"+day;
   d.setDate(d.getDate() + 1);
-  document.getElementById('day3').value = monthValues_short[d.getMonth()]+" "+d.getDate();
+  day = dayValues[d.getDay()].substring(0,3);
+  document.getElementById('day3').innerHTML = monthValues_short[d.getMonth()]+" "+d.getDate()+"<br/>"+day;
   d.setDate(d.getDate() + 2);
-  document.getElementById('day5').value = monthValues_short[d.getMonth()]+" "+d.getDate();
+  day = dayValues[d.getDay()].substring(0,3);
+  document.getElementById('day5').innerHTML = monthValues_short[d.getMonth()]+" "+d.getDate()+"<br/>"+day;
   d.setDate(d.getDate() + 1);
-  document.getElementById('day6').value = monthValues_short[d.getMonth()]+" "+d.getDate();
+  day = dayValues[d.getDay()].substring(0,3);
+  document.getElementById('day6').innerHTML = monthValues_short[d.getMonth()]+" "+d.getDate()+"<br/>"+day;
   d.setDate(d.getDate() + 1);
-  document.getElementById('day7').value = monthValues_short[d.getMonth()]+" "+d.getDate();
+  day = dayValues[d.getDay()].substring(0,3);
+  document.getElementById('day7').innerHTML = monthValues_short[d.getMonth()]+" "+d.getDate()+"<br/>"+day;
 }
 
 function goToDate(id) {
