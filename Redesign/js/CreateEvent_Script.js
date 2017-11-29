@@ -1,11 +1,12 @@
 // header
 var notification_num = 0;
+var contacts_list = [];
 
 var show_alternate = false;
 
 //variable to store new attendees to events
 var attendees = [];
-var num_attendees = 0;
+var num_attendee_fields = 0;
 
 function clearFields(event) {
     $('#event_name_create').val('');
@@ -19,16 +20,23 @@ function clearFields(event) {
 
     $('#notifications_start').empty();
 
-    for (var count = 1; count <= num_attendees; count++) {
+    attendees = [{ name: localStorage.getItem("username"), email: localStorage.getItem("email") }];
+
+    if(show_alternate) {
+      $('#attendees_start').empty();
+      num_attendee_fields = 0;
+      addAttendee({attendee_index:1, attendee_name:attendees[0].name, attendee_name_text:attendees[0].name+" (You)"});
+    }
+    else {
+      for (var count = 1; count <= num_attendee_fields; count++) {
         if ($('#attendee_checkbox' + count).attr('value') === localStorage.getItem("username")) {
-            $('#attendee_checkbox' + count).prop('checked', true);
+          $('#attendee_checkbox' + count).prop('checked', true);
         }
         else {
-            $('#attendee_checkbox' + count).prop('checked', false);
+          $('#attendee_checkbox' + count).prop('checked', false);
         }
+      }
     }
-
-    attendees = [{ name: localStorage.getItem("username"), email: localStorage.getItem("email") }];
 }
 
 function createEvent(event) {
@@ -51,19 +59,25 @@ function createEvent(event) {
 
 	var notification_list = [];
 	for(var count = 1; count <= notification_num; count++) {
-		var desc = $('#notification_text' + count).val();
-		var offset_num = $('#minutes_offset' + count).val();
-		var offset_type = $('input[name=offset_type'+count+']:checked').val();
-		var notif = {'desc': desc, 'offset_num': offset_num, 'offset_type': offset_type}
-		notification_list.push(notif);
+  	var desc = $('#notification_text' + count).val();
+  	var offset_num = $('#minutes_offset' + count).val();
+  	var offset_type = $('input[name=offset_type'+count+']:checked').val();
+  	var notif = {'desc': desc, 'offset_num': offset_num, 'offset_type': offset_type}
+  	notification_list.push(notif);
 	}
+
+  for(var count = 0; count < attendees.length; count++) {
+    if(attendees[count] == null) {
+      attendees.splice(count, 1);
+      count--;
+    }
+  }
 
 	var eventToMake = {name: namePrime, start: start, end: end, contacts: attendees, notifications: notification_list};
 	current_events.push(eventToMake);
-	console.log(JSON.stringify(current_events));
-    localStorage.setItem('event', JSON.stringify(current_events));
+	localStorage.setItem('event', JSON.stringify(current_events));
 
-    window.location.href = "TodaysEvents.html";
+  window.location.href = "TodaysEvents.html";
 };
 
 function updateRecipientLists() {
@@ -77,6 +91,7 @@ function updateRecipientLists() {
 		var template = Handlebars.compile(source); //make it usable
 		for(var count2 = 0; count2 < attendees.length; count2++) {
 			//console.log("Adding recipient " + (count2+1));
+      if(attendees[count2] == null) continue;
 			var recipient_name = attendees[count2].name;
 			var text_name = recipient_name;
 			if(recipient_name === localStorage.getItem("username")) text_name = text_name + " (You)";
@@ -119,18 +134,65 @@ function updateAttendees(event) {
 	updateRecipientLists();
 }
 
+function updateAttendeeItem(event) {
+  var id_num = $(this).attr('id').substring(20);
+  var att_num = parseInt(id_num.split('-')[0]);
+  var sel_num = parseInt(id_num.split('-')[1]);
+  attendees[att_num-1] = contacts_list[sel_num-1];
+  $('#attendee_menu' + att_num).text(attendees[att_num-1].name);
+
+  updateRecipientLists();
+}
+
+function deleteAttendeeItem(event) {
+  var id_num = $(this).attr('id').substring(20);
+  var att_num = parseInt(id_num.split('-')[0]);
+  if(attendees.length > att_num) attendees.splice(att_num-1, 1);
+  for(var count = att_num; count < num_attendee_fields; count++) {
+    console.log("Adding contact to menu " + count)
+    $('#attendee_menu' + count).text($('#attendee_menu' + (count+1)).text());
+    $('#attendee_menu' + count).attr("value", $('#attendee_menu' + (count+1)).attr("value"));
+  }
+
+  console.log("Removing dropdown")
+
+  $('#attendee_dropdown' + num_attendee_fields).remove();
+  num_attendee_fields--;
+
+  updateRecipientLists();
+}
+
 function addAttendee(contact_data) {
-	num_attendees++;
+	num_attendee_fields++;
 	var source = show_alternate ? $("#attendee_templateB").html() : $("#attendee_templateA").html(); //get html
 	var template = Handlebars.compile(source); //make it usable
 	var parentDiv = $("#attendees_start");
 	var htmlOutput = template(contact_data);
 	parentDiv.append(htmlOutput);
-	if(!show_alternate) $("#attendee_checkbox" + num_attendees).change(updateAttendees);
+	if(show_alternate) {
+    source = $('#attendee_select_item').html();
+    template = Handlebars.compile(source);
+    parentDiv = $('#attendee_select_start' + num_attendee_fields);
+
+    for(var count = 0; count < contacts_list.length; count++) {
+      var name = contacts_list[count].name;
+      var name_text = (name === localStorage.getItem("username")) ? name + " (You)" : name;
+      htmlOutput = template({attendee_index:num_attendee_fields, attendee_name:name, attendee_name_text:name_text, select_index:count+1});
+      parentDiv.append(htmlOutput);
+      $('#attendee_select_item' + (num_attendee_fields) + '-' + (count+1)).click(updateAttendeeItem);
+    }
+
+    htmlOutput = template({attendee_index:num_attendee_fields, attendee_name:"Remove Attendee", attendee_name_text:"Remove Attendee", select_index:count+1});
+    parentDiv.append(htmlOutput);
+    $('#attendee_select_item' + (num_attendee_fields) + '-' + (count+1)).click(deleteAttendeeItem);
+  }
+  else {
+    $("#attendee_checkbox" + num_attendee_fields).change(updateAttendees);
+  }
 };
 
 function addAttendeeButton(event) {
-  addAttendee({attendee_index:num_attendees+1, attendee_name:"Select Contact", attendee_name_text:"Select Contact"});
+  addAttendee({attendee_index:num_attendee_fields+1, attendee_name:"Select Contact", attendee_name_text:"Select Contact"});
 }
 
 function deleteNotification(event) {
@@ -169,7 +231,7 @@ function addRecipient(event) {
 
 $(document).ready(
 	function() {
-    show_alternate = localStorage.getItem("show_alternate")=="true";
+    show_alternate = JSON.parse(localStorage.getItem("show_alternate"));
 
     if(!show_alternate || show_alternate == null) {
       $('#attendee_button').hide();
@@ -211,12 +273,12 @@ $(document).ready(
     $('#warning_text').hide();
 
     attendees.push({ name: localStorage.getItem("username"), email: localStorage.getItem("email") });
+    contacts_list = JSON.parse(localStorage.getItem("contacts"));
 
     if(show_alternate) {
-
+      addAttendee({attendee_index:1, attendee_name:attendees[0].name, attendee_name_text:attendees[0].name+" (You)"});
     }
     else {
-      var contacts_list = JSON.parse(localStorage.getItem("contacts"));
   		var current_user = localStorage.getItem("username");
   		for(var count = 0; count < contacts_list.length; count++) {
   			var curr_contact = contacts_list[count].name;

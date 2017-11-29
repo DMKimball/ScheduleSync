@@ -57,7 +57,7 @@
 			<!-- Attendee Template B -->
 			<script id="attendee_templateB" type="text/x-handlebars-template">
 				<div class="dropdown" id="attendee_dropdown{{attendee_index}}">
-				  <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				  <button class="btn btn-primary dropdown-toggle" type="button" id="attendee_menu{{attendee_index}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				    {{attendee_name_text}}
 				  </button>
 				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="attendee_select_start{{attendee_index}}">
@@ -65,7 +65,7 @@
 				</div>
 			</script>
 			<script id="attendee_select_item" type="text/x-handlebars-template">
-				<a class="dropdown-item" href="#" id="attendee_select_item{{attendee_index}}-{{select_index}}">{{attendee_name_text}}</a>
+				<button class="dropdown-item" type="button" value="{{attendee_name}}" id="attendee_select_item{{attendee_index}}-{{select_index}}">{{attendee_name_text}}</button>
 			</script>
 
 			<!-- "Add attendee" button for version B -->
