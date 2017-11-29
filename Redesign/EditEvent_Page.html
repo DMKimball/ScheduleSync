@@ -7,7 +7,7 @@
  			window.dataLayer = window.dataLayer || [];
  			function gtag(){dataLayer.push(arguments);}
  			gtag('js', new Date());
-			
+
  			gtag('config', 'UA-110358238-1');
  		</script>
 
@@ -35,19 +35,44 @@
 					<strong>Event End Time:</strong> <br>
 					<input id="end_time_edit" type="datetime-local"></br>
 				</div>
-                <div class="col-6" id="warning_text">
-                    <br>Please enter a valid start time and end time!
-                </div>
+        <div class="col-6" id="warning_text">
+            <br>Please enter a valid start time and end time!
+        </div>
 			</div>
-            <div class="row">
-                <div class="col-6"><strong>Attendees:</strong></div>
-            </div>
+
+			<!-- Attendee List -->
+      <div class="row">
+          <div class="col-6"><strong>Attendees:</strong></div>
+      </div>
 			<div class="row">
 				<div class="col-6" id="attendees_start"></div>
 			</div>
-			<script id="attendee_template" type="text/x-handlebars-template">
+
+			<!-- Attendee Template A -->
+			<script id="attendee_templateA" type="text/x-handlebars-template">
 				<input id="attendee_checkbox{{attendee_index}}" type="checkbox" value="{{attendee_name}}">{{attendee_name_text}}<br>
 			</script>
+
+			<!-- Attendee Template B -->
+			<script id="attendee_templateB" type="text/x-handlebars-template">
+				<div class="dropdown" id="attendee_dropdown{{attendee_index}}">
+				  <button class="btn btn-primary dropdown-toggle" type="button" id="attendee_menu{{attendee_index}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    {{attendee_name_text}}
+				  </button>
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="attendee_select_start{{attendee_index}}">
+				  </div>
+				</div>
+			</script>
+			<script id="attendee_select_item" type="text/x-handlebars-template">
+				<button class="dropdown-item" type="button" value="{{attendee_name}}" id="attendee_select_item{{attendee_index}}-{{select_index}}">{{attendee_name_text}}</button>
+			</script>
+
+			<!-- "Add attendee" button for version B -->
+			<div class="row" id="attendee_button">
+				<div class="col-12">
+					<input id="add_attendee" type="button" value="Add attendee">
+				</div>
+			</div>
 
 			<!-- Event Notification Settings -->
 			<div id="notifications_start"></div>

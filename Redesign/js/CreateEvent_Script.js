@@ -149,12 +149,10 @@ function deleteAttendeeItem(event) {
   var att_num = parseInt(id_num.split('-')[0]);
   if(attendees.length > att_num) attendees.splice(att_num-1, 1);
   for(var count = att_num; count < num_attendee_fields; count++) {
-    console.log("Adding contact to menu " + count)
     $('#attendee_menu' + count).text($('#attendee_menu' + (count+1)).text());
     $('#attendee_menu' + count).attr("value", $('#attendee_menu' + (count+1)).attr("value"));
   }
 
-  console.log("Removing dropdown")
 
   $('#attendee_dropdown' + num_attendee_fields).remove();
   num_attendee_fields--;
@@ -185,6 +183,7 @@ function addAttendee(contact_data) {
     htmlOutput = template({attendee_index:num_attendee_fields, attendee_name:"Remove Attendee", attendee_name_text:"Remove Attendee", select_index:count+1});
     parentDiv.append(htmlOutput);
     $('#attendee_select_item' + (num_attendee_fields) + '-' + (count+1)).click(deleteAttendeeItem);
+    $('#attendee_select_item' + (num_attendee_fields) + '-' + (count+1)).css({'color':'red'});
   }
   else {
     $("#attendee_checkbox" + num_attendee_fields).change(updateAttendees);
@@ -234,6 +233,7 @@ $(document).ready(
     show_alternate = JSON.parse(localStorage.getItem("show_alternate"));
 
     if(!show_alternate || show_alternate == null) {
+      show_alternate = false;
       $('#attendee_button').hide();
     }
     else {
