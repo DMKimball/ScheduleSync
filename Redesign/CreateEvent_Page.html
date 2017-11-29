@@ -17,29 +17,37 @@
 				</div>
 			</div>
 			<div class="row" id="time_row">
-			    <div class="col-3">
-				    <strong>Event Start Time:</strong> <br>
-				    <input id="start_time_create" type="datetime-local"><br>
-			    </div>
+		    <div class="col-3">
+			    <strong>Event Start Time:</strong> <br>
+			    <input id="start_time_create" type="datetime-local"><br>
+		    </div>
 				<div class="col-3">
 					<strong>Event End Time:</strong> <br>
 					<input id="end_time_create" type="datetime-local"></br>
 				</div>
-                <div class="col-6" id="warning_text">
-                    <br>Please enter a valid start time and end time!
-                </div>
+				<div class="col-6" id="warning_text">
+					<br>Please enter a valid start time and end time!
+        </div>
 			</div>
-            <!-- Attendee List -->
-            <div class="row">
-                <div class="col-6"><strong>Attendees:</strong></div>
-            </div>
+
+			<!-- Attendee List -->
+      <div class="row">
+      	<div class="col-6"><strong>Attendees:</strong></div>
+      </div>
 			<div class="row">
 				<div class="col-6" id="attendees_start">
 				</div>
 			</div>
-			<script id="attendee_template" type="text/x-handlebars-template">
+			<script id="attendee_templateA" type="text/x-handlebars-template">
 				<input id="attendee_checkbox{{attendee_index}}" type="checkbox" value="{{attendee_name}}">{{attendee_name_text}}<br>
 			</script>
+
+			<!-- "Add attendee" button for version B -->
+			<div class="row" id="attendee_button">
+				<div class="col-12">
+					<input id="add_attendee" type="button" value="Add attendee">
+				</div>
+			</div>
 
 			<!-- Event Notification Settings -->
 			<div id="notifications_start"></div>
@@ -82,7 +90,7 @@
                     </div>
 				</div>
 			</script>
-			<script id="notification_recipient" type="text/x-handlebars-template">
+			<script id="notification_recipientA" type="text/x-handlebars-template">
 			<div class="row">
 				<div class="col-1"></div>
 				<div class="col-11">

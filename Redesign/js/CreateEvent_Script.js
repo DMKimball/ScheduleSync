@@ -1,6 +1,8 @@
 // header
 var notification_num = 0;
 
+var show_alternate = false;
+
 //variable to store new attendees to events
 var attendees = [];
 var num_attendees = 0;
@@ -103,8 +105,7 @@ function updateAttendees(event) {
 				return;
 			}
 		}
-		console.log({name:attendee_name, email:attendee_email});
-        attendees.push({ name: attendee_name, email: attendee_email });
+    attendees.push({ name: attendee_name, email: attendee_email });
 	}
 	else {
 		for(var count = 0; count < attendees.length; count++) { //find contact to be removed
@@ -120,7 +121,7 @@ function updateAttendees(event) {
 
 function addAttendee(contact_data) {
 	num_attendees++;
-	var source = $("#attendee_template").html(); //get html
+	var source = $("#attendee_templateA").html(); //get html
 	var template = Handlebars.compile(source); //make it usable
 	var parentDiv = $("#attendees_start");
 	var htmlOutput = template(contact_data);
@@ -146,16 +147,16 @@ function addNotification(event) {
 	var source = $("#notification_template").html(); //get html
 	var template = Handlebars.compile(source); //make it usable
 	var parentDiv = $("#notifications_start");
-    var htmlOutput = template({ notification_num: notification_num });
+  var htmlOutput = template({ notification_num: notification_num });
 	parentDiv.append(htmlOutput);
-    $("#delete_notification" + notification_num).click(deleteNotification);
+  $("#delete_notification" + notification_num).click(deleteNotification);
 	updateRecipientLists();
 };
 
 function addRecipient(event) {
 	var notif_index = parseInt($(this).attr('id').substring(13));
 
-	var source = $("#notification_recipient").html(); //get html
+	var source = $("#notification_recipientA").html(); //get html
 	var template = Handlebars.compile(source); //make it usable
 	var parentDiv = $("#recipient_start" + notif_index);
 	var htmlOutput = template({notification_num:notif_index, recipient_num:recipient_index});
@@ -164,6 +165,13 @@ function addRecipient(event) {
 
 $(document).ready(
 	function() {
+    show_alternate = true;//localStorage.getItem("show_alternate");
+
+    if(!show_alternate || show_alternate == null) {
+      show_alternate = false;
+      $('#attendee_button').hide();
+    }
+
 		$('#add_notification').click(addNotification);
 		$('#clear_create').click(clearFields);
         $('#create_create').click(createEvent);
@@ -182,7 +190,6 @@ $(document).ready(
 		var contacts_list = JSON.parse(localStorage.getItem("contacts"));
 		var current_user = localStorage.getItem("username");
 		for(var count = 0; count < contacts_list.length; count++) {
-			console.log("Adding attendee " + (count+1));
 			var curr_contact = contacts_list[count].name;
 			if(curr_contact === current_user) {
 				var text_name = curr_contact + " (You)";
