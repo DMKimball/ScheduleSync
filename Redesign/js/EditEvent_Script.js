@@ -193,7 +193,26 @@ $(document).ready(
 	function() {
 		$('#add_notification').click(addNotification);
 		$('#clear_edit').click(resetFields);
-		$('#edit_confirm').click(editEvent);
+		$('#edit_confirm').click(function(){
+			if ("ga" in window){
+				tracker = ga.getAll()[0];
+				if(tracker){
+					tracker.send('event','edit_event_confirm','click');
+				}
+			}
+			editEvent();	
+		});
+
+		$('#edit_cancel').click(function() {
+			if ("ga" in window){
+				tracker = ga.getAll()[0];
+				if(tracker){
+					tracker.send('event','create_event_cancel','click');
+				}
+			}
+			window.location.href = "TodaysEvents.html";		
+		});
+
         $('#edit_delete').click(deleteEvent);
 
         $('#warning_text').hide();
