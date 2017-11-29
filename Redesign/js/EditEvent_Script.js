@@ -3,7 +3,7 @@ var notification_num = 0;
 
 //variable to store new attendees to events
 var attendees = [];
-var num_attendees = 0;
+var num_attendee_fields = 0;
 
 var contacts_list = [];
 
@@ -14,7 +14,7 @@ function resetFields(event) {
   $("#attendees_start").empty();
   $("#notifications_start").empty();
   notification_num = 0;
-  num_attendees = 0;
+  num_attendee_fields = 0;
 
 	$('#event_name_edit').val(edittedEvent.name);
 	$('#start_time_edit').val(edittedEvent.start);
