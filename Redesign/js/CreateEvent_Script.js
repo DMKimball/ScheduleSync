@@ -174,7 +174,25 @@ $(document).ready(
 
 		$('#add_notification').click(addNotification);
 		$('#clear_create').click(clearFields);
-        $('#create_create').click(createEvent);
+        $('#create_create').click(function() {
+		if ("ga" in window){
+			tracker = ga.getAll()[0];
+			if(tracker){
+				tracker.send('event','create_event_confirm','click');
+			}
+		}
+		createEvent();
+	});
+	$('#cancel_create').click(function() {
+		if ("ga" in window){
+			tracker = ga.getAll()[0];
+			if(tracker){
+				tracker.send('event','create_event_cancel','click');
+			}
+		}
+		window.location.href = "TodaysEvents.html";		
+
+	});
 
         var shownDate = new Date(localStorage.getItem("dateShown_t"));
         var defaultStart = shownDate.getFullYear() + "-" + (shownDate.getMonth()+1) + "-" + shownDate.getDate() + "T" + shownDate.getHours() + ":00";
