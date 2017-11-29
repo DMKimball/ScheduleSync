@@ -1,41 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Schedule Sync: Share an Event</title> <!-- Page title, TODO: CHANGE THIS -->
+		<title>Loading</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-		<link href="CreateEvent_Stylesheet.css" rel="stylesheet" /> <!-- CSS link, TODO: CHANGE THIS -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	</head>
 	<body>
-		<div class="container blue-box">
-			<h1>Share Event With:</h1>
-			<div class="row">
-				<div class="col-2">
-					Contact Name: <br>
-					<input id="contact_name" type="text" name="contactname"><br>
-				</div>
-				<div class="col-2">
-					Contact Email: <br>
-					<input id="contact_email" type="email" name="contactemail"><br>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-2">
-					<input type="button" value="Add Contact Field">
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-1">
-					<input type="reset" value="Clear">
-				</div>
-				<div class="col-1">
-					<a href="EditEvent.html"><input type="button" value="Cancel"></a>
-				</div>
-				<div class="col-1">
-					<input id="share_button" type="button" value="Share">
-				</div>
-			</div>
+		<div class="container-fluid">
+			<p>One moment please...</p>
 
 		</div>
 		<!-- Bootstrap and jQuery script links, DO NOT CHANGE OR REMOVE THESE -->
@@ -44,7 +17,16 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 		<script src="js/handlebars-v4.0.11.js"></script>
 
-		<!-- JavaScript link, TODO: UPDATE THIS LATER -->
-		<script src="js/share_event.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-110358238-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-110358238-1');
+    </script>
+
+		<script src="js/index.js"></script>
 	</body>
 </hmtl>
