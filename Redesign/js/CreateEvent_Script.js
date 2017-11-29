@@ -165,10 +165,9 @@ function addRecipient(event) {
 
 $(document).ready(
 	function() {
-    show_alternate = true;//localStorage.getItem("show_alternate");
+    show_alternate = localStorage.getItem("show_alternate")=="true";
 
     if(!show_alternate || show_alternate == null) {
-      show_alternate = false;
       $('#attendee_button').hide();
     }
 
@@ -190,7 +189,7 @@ $(document).ready(
 				tracker.send('event','create_event_cancel','click');
 			}
 		}
-		window.location.href = "TodaysEvents.html";		
+		window.location.href = "TodaysEvents.html";
 
 	});
 
