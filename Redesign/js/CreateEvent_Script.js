@@ -121,13 +121,17 @@ function updateAttendees(event) {
 
 function addAttendee(contact_data) {
 	num_attendees++;
-	var source = $("#attendee_templateA").html(); //get html
+	var source = show_alternate ? $("#attendee_templateB").html() : $("#attendee_templateA").html(); //get html
 	var template = Handlebars.compile(source); //make it usable
 	var parentDiv = $("#attendees_start");
 	var htmlOutput = template(contact_data);
 	parentDiv.append(htmlOutput);
-	$("#attendee_checkbox" + num_attendees).change(updateAttendees);
+	if(!show_alternate) $("#attendee_checkbox" + num_attendees).change(updateAttendees);
 };
+
+function addAttendeeButton(event) {
+  addAttendee({attendee_index:num_attendees+1, attendee_name:"Select Contact", attendee_name_text:"Select Contact"});
+}
 
 function deleteNotification(event) {
     var notif_index = parseInt($(this).attr('id').substring(19));
@@ -170,50 +174,60 @@ $(document).ready(
     if(!show_alternate || show_alternate == null) {
       $('#attendee_button').hide();
     }
+    else {
+      $('#attendee_button').click(addAttendeeButton);
+    }
 
 		$('#add_notification').click(addNotification);
 		$('#clear_create').click(clearFields);
-        $('#create_create').click(function() {
-		if ("ga" in window){
-			tracker = ga.getAll()[0];
-			if(tracker){
-				tracker.send('event','create_event_confirm','click');
-			}
-		}
-		createEvent();
-	});
-	$('#cancel_create').click(function() {
-		if ("ga" in window){
-			tracker = ga.getAll()[0];
-			if(tracker){
-				tracker.send('event','create_event_cancel','click');
-			}
-		}
-		window.location.href = "TodaysEvents.html";
 
-	});
+    $('#create_create').click(function() {
+  		if ("ga" in window){
+  			tracker = ga.getAll()[0];
+  			if(tracker){
+  				tracker.send('event','create_event_confirm','click');
+  			}
+  		}
+  		createEvent();
+  	});
 
-        var shownDate = new Date(localStorage.getItem("dateShown_t"));
-        var defaultStart = shownDate.getFullYear() + "-" + (shownDate.getMonth()+1) + "-" + shownDate.getDate() + "T" + shownDate.getHours() + ":00";
-        var defaultEnd = shownDate.getFullYear() + "-" + (shownDate.getMonth()+1) + "-" + shownDate.getDate() + "T" + shownDate.getHours() + ":30";
+  	$('#cancel_create').click(function() {
+  		if ("ga" in window){
+  			tracker = ga.getAll()[0];
+  			if(tracker){
+  				tracker.send('event','create_event_cancel','click');
+  			}
+  		}
+  		window.location.href = "TodaysEvents.html";
+  	});
 
-        $('#start_time_create').val(defaultStart);
-        $('#end_time_create').val(defaultEnd);
+    var shownDate = new Date(localStorage.getItem("dateShown_t"));
+    var defaultStart = shownDate.getFullYear() + "-" + (shownDate.getMonth()+1) + "-" + shownDate.getDate() + "T" + shownDate.getHours() + ":00";
+    var defaultEnd = shownDate.getFullYear() + "-" + (shownDate.getMonth()+1) + "-" + shownDate.getDate() + "T" + shownDate.getHours() + ":30";
 
-        $('#warning_text').hide();
+    $('#start_time_create').val(defaultStart);
+    $('#end_time_create').val(defaultEnd);
 
-        attendees.push({ name: localStorage.getItem("username"), email: localStorage.getItem("email") });
+    $('#warning_text').hide();
 
-		var contacts_list = JSON.parse(localStorage.getItem("contacts"));
-		var current_user = localStorage.getItem("username");
-		for(var count = 0; count < contacts_list.length; count++) {
-			var curr_contact = contacts_list[count].name;
-			if(curr_contact === current_user) {
-				var text_name = curr_contact + " (You)";
-				addAttendee({attendee_index:count+1, attendee_name:curr_contact, attendee_name_text:text_name});
-				$("#attendee_checkbox" + (count+1)).prop("checked", true);
-			}
-			else addAttendee({attendee_index:count+1, attendee_name:curr_contact, attendee_name_text:curr_contact});
-		}
+    attendees.push({ name: localStorage.getItem("username"), email: localStorage.getItem("email") });
+
+    if(show_alternate) {
+
+    }
+    else {
+      var contacts_list = JSON.parse(localStorage.getItem("contacts"));
+  		var current_user = localStorage.getItem("username");
+  		for(var count = 0; count < contacts_list.length; count++) {
+  			var curr_contact = contacts_list[count].name;
+  			if(curr_contact === current_user) {
+  				var text_name = curr_contact + " (You)";
+  				addAttendee({attendee_index:count+1, attendee_name:curr_contact, attendee_name_text:text_name});
+  				$("#attendee_checkbox" + (count+1)).prop("checked", true);
+  			}
+  			else addAttendee({attendee_index:count+1, attendee_name:curr_contact, attendee_name_text:curr_contact});
+  		}
+    }
+
 	}
 );
