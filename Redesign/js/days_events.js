@@ -26,6 +26,15 @@ $(document).ready(function() {
   console.log(name);
   generateDateButtons();
   generateEvents();
+  $('#add_event').click(function () {
+    if ("ga" in window){
+      tracker = ga.getAll()[0];
+        if(tracker){
+  	  tracker.send('event','add_new_event','click');
+  	}
+    }
+    window.location.href = "CreateEvent.html"
+  });
   $('#logout_todays_events').click(logout);
   // Generate events based on sharing
   document.getElementById('day_date').innerHTML = generateDate();
@@ -160,6 +169,12 @@ function generateToday(){
 
 function eventClicked(eventName) {
   localStorage.setItem('eventEdit', eventName);
+  if ("ga" in window){
+    tracker = ga.getAll()[0];
+    if(tracker){
+      tracker.send('event','edit_event_click','click');
+    }
+  }
   location.href = "EditEvent.html";
 }
 
